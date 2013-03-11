@@ -30,22 +30,22 @@ public class AgenciaNegocio {
 
 	try
 	{
-		if(oAgencia.getCodAgencia().length()==0){
+		if(oAgencia.getCodAgencia().trim().length()==0){
 			throw new SQLException("Debe ingresar el código de agencia");
                 }
-		if(oAgencia.getDescripcion().length()==0){
+		if(oAgencia.getDescripcion().trim().length()==0){
 			throw new SQLException("Debe ingresar el nombre de agencia");
                 }
-		if(oAgencia.getDireccion().length()==0){
+		if(oAgencia.getDireccion().trim().length()==0){
 			throw new SQLException("Debe ingresar la dirección de agencia");
                 }
-		if(oAgencia.getDepartamento().length()==0){
+		if(oAgencia.getDepartamento().trim().length()==0){
 			throw new SQLException("Debe ingresar el departamento de la agencia");
                 }
-		if(oAgencia.getProvincia().length()==0){
+		if(oAgencia.getProvincia().trim().length()==0){
 			throw new SQLException("Debe ingresar la provincia de la agencia");
                 }
-		if(oAgencia.getDistrito().length()==0){
+		if(oAgencia.getDistrito().trim().length()==0){
 			throw new SQLException("Debe ingresar el distrito de la agencia");
                 }
 	//VALIDAR AGENCIA
