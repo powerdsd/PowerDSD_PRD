@@ -28,16 +28,16 @@ public class BusNegocio {
 
 	try
 	{
-		if(oBus.getNu_Placa().length()==0){
+		if(oBus.getNu_Placa().trim().length()==0){
 			throw new SQLException("Debe ingresar la Placa del vehículo");
                 }
-                if(oBus.getMarca().length()==0){
+                if(oBus.getMarca().trim().length()==0){
 			throw new SQLException("Debe ingresar la Marca del vehículo");
                 }
-                if(oBus.getModelo().length()==0){
+                if(oBus.getModelo().trim().length()==0){
 			throw new SQLException("Debe ingresar el Modelo del vehículo");
                 }
-                if(oBus.getModelo().length()==0){
+                if(oBus.getModelo().trim().length()==0){
 			throw new SQLException("Debe ingresar el Año de Fabricación del vehículo");
                 }
 	//VALIDAR BUS
@@ -53,4 +53,4 @@ public class BusNegocio {
 			throw new DAOExcepcion(e.getMessage());
 		}		
 	}
-        }
+}
