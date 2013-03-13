@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Bus;
@@ -79,5 +81,39 @@ public class BusDAO extends BaseDAO {
 			}	
 			return intReturn;
 		
+	}
+
+	public Collection<Bus> listarBuses() throws DAOExcepcion {
+		String query;
+		Collection<Bus> s = new ArrayList<Bus>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ConexionBD.obtenerConexion();
+			query = "select * from tb_bus";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+					
+					Bus bs= new Bus();
+					bs.setNu_Placa(rs.getString("placa"));
+					bs.setMarca(rs.getString("marca"));
+					bs.setModelo(rs.getString("modelo"));
+					bs.setAño(rs.getString("año"));
+					
+					s.add(bs);
+					
+				} 
+			}catch (SQLException e) {
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+			} finally {
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+			}
+			return s;	
 	}
 }

@@ -5,9 +5,11 @@
 package powerdsd.negocio;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import powerdsd.dao.AgenciaDAO;
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Agencia;
+import powerdsd.modelo.Bus;
 
 /**
  *
@@ -15,6 +17,11 @@ import powerdsd.modelo.Agencia;
  */
 public class AgenciaNegocio {
     
+    	public Collection<Agencia> listarAgencias() throws DAOExcepcion {
+		AgenciaDAO dao= new AgenciaDAO();		
+		return dao.listarAgencias();
+	}
+ 
     	public void insertarAgencia(String codAgencia, String descripcion, String direccion, String departamento, String provincia, String distrito)throws DAOExcepcion{
 		
 		AgenciaDAO dao=new AgenciaDAO();

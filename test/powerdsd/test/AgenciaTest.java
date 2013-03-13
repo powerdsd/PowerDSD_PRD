@@ -4,10 +4,12 @@
  */
 package powerdsd.test;
 
+import java.util.Collection;
 import powerdsd.negocio.AgenciaNegocio;
 import junit.framework.Assert;
 import org.junit.Test;
 import powerdsd.excepcion.DAOExcepcion;
+import powerdsd.modelo.Agencia;
 
 
 
@@ -40,18 +42,33 @@ public class AgenciaTest {
     //
     * 
     */
-    @Test
+//    @Test
     // public void hello() {}
      public void RegistrarAgencia() {
 
         AgenciaNegocio neg = new AgenciaNegocio();
 
         try {
-            neg.insertarAgencia("0001", "Terminal San Borja", "Av. Aviación 2401", "01", "0001", "123456");
+            neg.insertarAgencia("0002", "Terminal Surco", "Av. Atocongo 3134", "01", "0001", "123456");
             System.out.println("Agencia registrada con éxito.");
         } catch (DAOExcepcion e) {
             Assert.fail("Fallo: " + e.getMessage());
         }
     }
-    
+
+        @Test
+    // public void hello() {}
+     public void listarAgenciasTest() {
+
+        AgenciaNegocio neg = new AgenciaNegocio();
+
+        try {
+			Collection<Agencia> encontrados = neg.listarAgencias();			
+			for (Agencia r : encontrados) {
+				System.out.println(r.getDescripcion());
+                        }
+                } catch (DAOExcepcion e) {
+			Assert.fail("Falló: " + e.getMessage());
+		}
+        }
 }

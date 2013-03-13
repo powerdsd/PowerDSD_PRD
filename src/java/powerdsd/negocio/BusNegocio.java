@@ -5,6 +5,7 @@
 package powerdsd.negocio;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import powerdsd.dao.BusDAO;
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Bus;
@@ -53,4 +54,9 @@ public class BusNegocio {
 			throw new DAOExcepcion(e.getMessage());
 		}		
 	}
+
+       	public Collection<Bus> listarBuses() throws DAOExcepcion {
+		BusDAO dao= new BusDAO();		
+		return dao.listarBuses();
+	}        
 }
