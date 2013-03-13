@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Agencia;
@@ -15,6 +17,42 @@ import powerdsd.util.ConexionBD;
  * @author W.Wong
  */
 public class AgenciaDAO extends BaseDAO {
+    
+	public Collection<Agencia> listarAgencias() throws DAOExcepcion {
+		String query;
+		Collection<Agencia> s = new ArrayList<Agencia>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ConexionBD.obtenerConexion();
+			query = "select * from tb_agencia";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+					
+					Agencia ag= new Agencia();
+					ag.setCodAgencia(rs.getString("cod_agencia"));
+					ag.setDescripcion(rs.getString("descripcion"));
+					ag.setDireccion(rs.getString("direccion"));
+					ag.setDepartamento(rs.getString("departamento"));
+					ag.setProvincia(rs.getString("provincia"));
+					ag.setDistrito(rs.getString("distrito"));
+					
+					s.add(ag);
+					
+				} 
+			}catch (SQLException e) {
+				System.err.println(e.getMessage());
+				throw new DAOExcepcion(e.getMessage());
+			} finally {
+				this.cerrarStatement(stmt);
+				this.cerrarConexion(con);
+			}
+			return s;	
+	}
     
 	public void insertarAgencia(Agencia agencia)throws DAOExcepcion{
 		

@@ -37,7 +37,104 @@
 						<span class="letra2"><em class="blanco">Registro de Pasajeros</em></span>
 					</div></td>
 			</tr>
-			<tr>
+    <!-- W.Wong Inicio Seleccion de Agencia Origen -->
+    <tr> 
+        <td width="162" height="30"><strong>Agencia Origen:</strong></td>
+            <td>
+                <%@page import="java.util.ArrayList, java.util.Collection, powerdsd.modelo.Agencia, powerdsd.modelo.Bus"%>
+                    <%
+                    Collection<Agencia> agencias = (ArrayList<Agencia>) session.getAttribute("AGENCIAS");
+                    if (agencias != null) {
+                    %>
+                    <select name="codAgeOrigen" id="codAgeOrigen">
+                    <%
+                    if (session.getAttribute("CODAgeOrigen")!=null){
+                        for (Agencia xAgencia : agencias) {
+                            if (String.valueOf(xAgencia.getCodAgencia()).equals(session.getAttribute("CODAgeOrigen"))){
+                                out.println("<OPTION value=\""+xAgencia.getCodAgencia()+ "\"> "+xAgencia.getDescripcion() + "</OPTION>");
+                            }  
+                        }				                
+                        }
+                        else{
+                            out.println("<OPTION value=\""+ session.getAttribute("CODAgeOrigen")+"\"> - Seleccione - </OPTION>");
+                        }
+                        for (Agencia x : agencias) {
+                            out.print("<OPTION value=\""+x.getCodAgencia()+ "\"> "+x.getDescripcion()+"</OPTION>");  
+                        }                    
+                            out.println("</SELECT >");
+                        } else {                    
+                        out.println("<font color=red>La variable AGENCIAS no tiene valor</font>");
+                        }
+                %>
+	</td>   
+						                    
+    </tr>
+<!-- W.Wong Fin Seleccion de Agencias Origen -->
+ 
+<!-- W.Wong Inicio Seleccion de Agencia Destino -->
+    <tr> 
+        <td width="162" height="30"><strong>Agencia Destino:</strong></td>
+            <td>
+                    <%
+                    Collection<Agencia> yAgencias = (ArrayList<Agencia>) session.getAttribute("AGENCIAS");
+                    if (agencias != null) {
+                    %>
+                    <select name="codAgeDestino" id="codAgeDestino"> 
+                    <% 
+                    if (session.getAttribute("CODAgeDestino")!=null){
+                        for (Agencia yAgencia : yAgencias) {
+                            if (String.valueOf(yAgencia.getCodAgencia()).equals(session.getAttribute("CODAgeDestino"))){
+                                out.println("<OPTION value=\""+yAgencia.getCodAgencia()+ "\"> "+yAgencia.getDescripcion()+"</OPTION>");
+                            }  
+                        }				                
+                        }
+                        else{
+                            out.println("<OPTION value=\""+ session.getAttribute("CODAgeDestino")+"\"> - Seleccione - </OPTION>");
+                        }
+                        for (Agencia y : yAgencias) {
+                            out.print("<OPTION value=\""+y.getCodAgencia()+ "\"> "+y.getDescripcion()+"</OPTION>");  
+                        }                    
+                            out.println("</SELECT >");
+                        }
+                %>
+	</td>   
+    </tr>
+<!-- W.Wong Fin Seleccion de Agencias -->
+
+<!-- W.Wong Inicio Seleccion de Buses -->
+    <tr> 
+        <td width="162" height="30"><strong>Bus :</strong></td>
+            <td>
+                    <%
+                    Collection<Bus> buses = (ArrayList<Bus>) session.getAttribute("BUSES");
+                    if (buses != null) {
+                    %>
+                    <select name="nu_Placa" id="nu_Placa">
+                    <%
+                    if (session.getAttribute("NUPlaca")!=null){
+                        for (Bus bus : buses) {
+                            if (String.valueOf(bus.getNu_Placa()).equals(session.getAttribute("NUPlaca"))){
+                                out.println("<OPTION value=\""+bus.getNu_Placa()+ "\"> "+bus.getNu_Placa()+"</OPTION>");
+                            }  
+                        }				                
+                        }
+                        else{
+                            out.println("<OPTION value=\""+ session.getAttribute("NUPlaca")+"\"> - Seleccione - </OPTION>");
+                        }
+                        for (Bus w : buses) {
+                            out.print("<OPTION value=\""+w.getNu_Placa()+ "\"> "+w.getNu_Placa()+"</OPTION>");  
+                        }                    
+                            out.println("</SELECT >");
+                        } else {                    
+                        out.println("<font color=red>No hay VEHICULOS registrados</font>");
+                        }
+                %>
+	</td>   
+						                    
+    </tr>
+<!-- W.Wong Fin Seleccion de Agencias Origen -->
+                        
+                        <tr>
 				<td width="199">&nbsp;</td>
 				<td width="234">&nbsp;</td>
 			</tr>
