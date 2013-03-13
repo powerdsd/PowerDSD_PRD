@@ -51,9 +51,9 @@
 									Deportivos</a></li>
                                                         --%>                
 						</ul></li>
-					<li><a href="powerdev_bucar_cancha.html" target="iframe"> Consultas</a></li>
-					<li><a href="Alquiler.jsp" target="iframe"> Reportes</a></li>
-					<li><a href="listarAlquiler.jsp" target="iframe"> Mantenimiento</a></li>
+					<li><a href="Construccion.html" target="iframe"> Consultas</a></li>
+					<li><a href="Construccion.html" target="iframe"> Reportes</a></li>
+					<li><a href="Construccion.html" target="iframe"> Mantenimiento</a></li>
                                         <%--                
 					<li><a href="registrarComentario.jsp" target="iframe">
 							Comentar las canchas</a></li>
