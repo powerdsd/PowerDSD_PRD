@@ -51,9 +51,9 @@
 									Deportivos</a></li>
                                                         --%>                
 						</ul></li>
-					<li><a href="powerdev_bucar_cancha.html" target="iframe"> Consultas</a></li>
-					<li><a href="Alquiler.jsp" target="iframe"> Reportes</a></li>
-					<li><a href="listarAlquiler.jsp" target="iframe"> Mantenimiento</a></li>
+					<li><a href="#">Consultas</a>
+					<li><a href="#">Reportes</a>
+					<li><a href="#">Mantenimiento</a>
                                         <%--                
 					<li><a href="registrarComentario.jsp" target="iframe">
 							Comentar las canchas</a></li>
@@ -94,7 +94,7 @@
 		<!-- End Right Column -->
 		<div class="clear"></div>
 		<div id="footer">
-			&copy; Copyright 2012 by Power DSD <br />
+			&copy; Copyright 2013 by Power DSD <br />
 		</div>
 	</div>
 	<!-- End Wrapper -->
