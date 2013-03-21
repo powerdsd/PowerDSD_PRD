@@ -28,9 +28,9 @@ public class PasajeTest {
 
 		String dateVta = "2013-03-24";
 	    java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);
-		String dateSal = "2013-03-31";
+		String dateSal = "2013-03-24";
 	    java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
-		String dateLle = "2013-03-31";
+		String dateLle = "2013-03-21";
 	    java.sql.Date sqlDateLle = java.sql.Date.valueOf(dateLle);
          
          
@@ -39,7 +39,7 @@ public class PasajeTest {
 		Bus bs = new Bus();
 	  	bs.setNu_Placa("UI-123"); 	
 		Agencia ago = new Agencia();
-	  	ago.setCodAgencia("0003"); 	
+	  	ago.setCodAgencia("0002"); 	
 		Agencia agd = new Agencia();
 	  	agd.setCodAgencia("0003"); 	
 
