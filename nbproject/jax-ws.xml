@@ -2,5 +2,34 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
   </services>
-  <clients/>
+  <clients>
+    <client name="WSConsultaReniec">
+      <wsdl-url>http://localhost:52115/ServicioReniec/WSConsultaReniec.asmx?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_52115/ServicioReniec/WSConsultaReniec.asmx.wsdl</local-wsdl-file>
+      <package-name>localhost</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:52115/ServicioReniec/WSConsultaReniec.asmx?WSDL</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+  </clients>
 </jax-ws>
