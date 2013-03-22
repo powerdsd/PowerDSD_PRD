@@ -66,6 +66,11 @@
 </head>
 <body>
 <form action="RegistrarPasajeroServlet" method="post">	
+    
+
+    <!--   <input type="hidden" name="hddaccion" id="hddaccion" value="operacion" />
+           <Input type="hidden" name="boton" id="boton" value = "" />  -->
+     
     <!-- <form action="">
     <table width="643" height="214" border="0" class="letra"> -->
 		<table width="643" border="0" class="letra">
@@ -92,25 +97,31 @@
 <tr>
     <td><em>N&uacute;mero de Documento de Identidad:</em><em class="rojo">*</em></td>
     <td><span class="letra2"> <input type="text" name="txtNumDoc" id="txtNumD0c" /></span></td>
+    <td><input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/></td>
+
 </tr>
 
 <tr>
     <td><span class="letra2"><em>Nombres:</em><em class="rojo">*</em></span></td>
-    <td><span class="letra2"> <input type="text" name="txtNombre" id="txtNombre" /></span></td>
+    <td><span class="letra2"> <input type="text" name="txtNombre" id="txtNombre" value="<%=request.getAttribute("TXTNombre")%>"/></span></td>
 </tr>
 <tr>
     <td><span class="letra2"><em>Apellido Paterno:</em><em class="rojo">*</em></span></td>
-    <td><span class="letra2"> <input type="text" name="txtApePaterno" id="txtApePaterno" /></span></td>
+    <td><span class="letra2"> <input type="text" name="txtApePaterno" id="txtApePaterno" value="<%=request.getAttribute("TXTApePaterno")%>"/></span></td>
 </tr>
 <tr>
     <td><em>Apellido Materno:</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtApeMaterno" id="txtApeMaterno" /></span></td>
+        <td><span class="letra2"> <input type="text" name="txtApeMaterno" id="txtApeMaterno" value="<%=request.getAttribute("TXTApeMaterno")%>"/></span></td>
 </tr>
 			
 <tr>
     <td><em>Edad</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" /></span></td>
+        <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
+    <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
+    <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
 </tr>
+<tr></tr>
+<tr></tr>
                         <%--
                         <tr>
 				<td><em>Direcci&oacuten:</em><em
@@ -322,8 +333,10 @@
     <tr>
         <td>&nbsp;</td>
             <td><span class="letra2"> 
-                <label> <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> 
-                        <input type="submit" name="btnGuardar" id="btnGuardar" value="Grabar" /> </label> 
+                <label> 
+                    <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> 
+                    <input type="submit" name="Grabar" id="Grabar" value="Grabar" class="boton" onclick="b"/> 
+                </label> 
             </span></td>
     </tr>
   </table>

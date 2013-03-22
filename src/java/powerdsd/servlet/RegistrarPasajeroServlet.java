@@ -132,6 +132,10 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 		String nu_Placa         = request.getParameter("nu_Placa");
 		String cboTipDni        = request.getParameter("cboTipDni");
 		String txtNumDoc        = request.getParameter("txtNumDoc");
+		String txtApePaterno    = request.getParameter("txtApePaterno");
+		String txtApeMaterno    = request.getParameter("txtApeMaterno");
+		String txtNombre        = request.getParameter("txtNombre");
+		String txtEdad          = request.getParameter("txtEdad");
 		String txtBoleto        = request.getParameter("txtBoleto");
 		String txtAsiento       = request.getParameter("txtAsiento");
 		String txtFechaEmision  = request.getParameter("txtFechaEmision");
@@ -148,7 +152,13 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 ago.setCodAgencia(codAgeOrigen);
                 Agencia agd = new Agencia();
                 agd.setCodAgencia(codAgeDestino);
-                try {
+                                
+                try {    
+		String accion = request.getParameter("hddaccion");
+                System.out.println("Valor del boton: " + accion);
+                System.out.println("Boton Reniec=" + request.getParameter("Reniec"));
+                System.out.println("Boton Grabar=" + request.getParameter("Grabar"));
+                
 
 		/*  la funcion modifica las fechas a formato aaaa-mm-dd. */
 		String txtFechaEm = Funciones.cambiaFormatoFecha(txtFechaEmision);
@@ -161,7 +171,58 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
 		String dateLle = txtFechaLl;
                 java.sql.Date sqlDateLle = java.sql.Date.valueOf(dateLle);
+
+// ****************** Inicio consulta Reniec *************************		
+		
+                if (request.getParameter("Reniec")!=null){
+
+                    System.out.println("dentro del boton Reniec");	
+
+                    
+                txtNombre = "Jacinta";    
+                txtApePaterno = "Perez";
+                txtApeMaterno = "Sosa";
+                txtEdad = "69";
+                                       
+		request.setAttribute("TXTNombre", txtNombre); 
+		request.setAttribute("TXTApePaterno", txtApePaterno); 
+		request.setAttribute("TXTApeMaterno", txtApeMaterno); 
+		request.setAttribute("TXTEdad", txtEdad); 
+                                        
+                }
+			
+// ****************** Fin consulta Reniec *************************	
                 
+// ****************** Inicio Confirmar *************************		
+
+                else if (request.getParameter("Confirmar")!=null){
+
+                    System.out.println("dentro del boton Confirmar");	
+                    
+                }
+
+// ****************** Fin Confirmar  *************************
+                
+// ****************** Inicio Rechazar *************************		
+                
+                else if (request.getParameter("Rechazar")!=null){
+
+                    System.out.println("dentro del boton Rechazar");	
+                    
+                }
+                    
+ // ****************** Fin Rechazar  *************************
+               
+                else if (request.getParameter("Grabar")!=null){
+                    
+                    System.out.println("dentro del boton Grabar");	
+
+                if(txtAsiento.trim().length()==0){
+			throw new DAOExcepcion("Debe ingresar el # de Asiento");
+                }
+                if(txtBoleto.trim().length()==0){
+			throw new DAOExcepcion("Debe ingresar el # de Boleto");	
+                }                
                     int numAsiento = Integer.parseInt(txtAsiento);
                     int numBoleto = Integer.parseInt(txtBoleto);
                 
@@ -173,13 +234,14 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 		request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
                     
                     
-                    psjNeg.insertarPasaje(numBoleto, cl, sqlDateVta, bs, 
-                numAsiento, ago, sqlDateVta, txtHoraPartida, 
-                agd, sqlDateVta, txtHoraLlegada);
+           psjNeg.insertarPasaje(numBoleto, cl, sqlDateVta, bs, 
+                    numAsiento, ago, sqlDateVta, txtHoraPartida, 
+                    agd, sqlDateVta, txtHoraLlegada);
                 System.out.println("se envió insertarPasaje");
      		request.setAttribute("MSG_ERROR", "El pasaje se registro con exito");
 		System.out.println("despues de resquest");	
-		} catch (DAOExcepcion e) {
+		}
+                } catch (DAOExcepcion e) {
 			
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -189,7 +251,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                     System.out.println("dentro del Catch Sql");	
 			request.setAttribute("MSG_ERROR", ex.getMessage()); 
         }
-                    System.out.println("Antes del RequestDispatcher");	                                                        
+                System.out.println("Antes del RequestDispatcher");	                                                        
 // Forward llama al jsp	
 	    RequestDispatcher rd = request.getRequestDispatcher("RegistrarPasajeros.jsp");
             rd.forward(request, response);
