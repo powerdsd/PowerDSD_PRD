@@ -73,6 +73,13 @@ public class PasajeNegocio {
                 if (oPasaje.getHora_llegada().trim().length()==0){
 			throw new SQLException("Debe ingresar la Hora de Llegada");
                 }
+                if (oPasaje.getFec_salida().before(oPasaje.getFec_venta())){
+			throw new SQLException("La fecha de salida no puede ser anterior a la fecha de venta");
+                }
+                if (oPasaje.getFec_llegada().before(oPasaje.getFec_salida())){
+			throw new SQLException("La fecha de llegada no puede ser anterior a la fecha de salida");
+                }
+
                 
 	//VALIDAR BUS
 		if(dao.validarPasaje(num_pas)>0) {
