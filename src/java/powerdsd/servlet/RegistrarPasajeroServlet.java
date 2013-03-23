@@ -227,7 +227,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                     int numBoleto = Integer.parseInt(txtBoleto);
                 
 
-	// Guardando datos en el scope SESSION
+	// Guardando datos en el  scope SESSION
 
 		request.setAttribute("REQFechaEmision", Funciones.fechaActualInicial());
 		request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
