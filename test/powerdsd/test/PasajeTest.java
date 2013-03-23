@@ -26,18 +26,18 @@ public class PasajeTest {
     // public void hello() {}
      public void RegistrarPasaje() throws SQLException {
 
-		String dateVta = "2013-03-24";
+		String dateVta = "2013-03-25";
 	    java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);
-		String dateSal = "2013-03-31";
+		String dateSal = "2013-03-30";
 	    java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
-		String dateLle = "2013-03-31";
+		String dateLle = "2013-03-28";
 	    java.sql.Date sqlDateLle = java.sql.Date.valueOf(dateLle);
          
          
 		Cliente cl = new Cliente();
-	  	cl.setDni_cliente("07460003"); 	
+	  	cl.setDni_cliente("07460006"); 	
 		Bus bs = new Bus();
-	  	bs.setNu_Placa("UI-123"); 	
+	  	bs.setNu_Placa("UI-125"); 	
 		Agencia ago = new Agencia();
 	  	ago.setCodAgencia("0003"); 	
 		Agencia agd = new Agencia();

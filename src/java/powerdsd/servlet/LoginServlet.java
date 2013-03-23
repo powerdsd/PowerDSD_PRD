@@ -59,10 +59,12 @@ public class LoginServlet extends HttpServlet {
 			System.err.println("Error");
 			RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
 			rd.forward(request, response);
+                        
 		} catch (LoginExcepcion e) {
 			System.err.println("Error");
 			RequestDispatcher rd = request.getRequestDispatcher("/error_login.jsp");
-			rd.forward(request, response);
+                        rd.forward(request,response);
+			
 		}
 		
 	}
