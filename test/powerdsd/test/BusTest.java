@@ -45,7 +45,7 @@ public class BusTest {
         BusNegocio neg = new BusNegocio();
 
         try {
-            neg.insertarBus("UI-123", "Scania", "SD001", "2005");
+            neg.insertarBus("UI-124", "Scania", "SD001", "2005");
             System.out.println("Bus registrado con éxito.");
         } catch (DAOExcepcion e) {
             Assert.fail("Fallo: " + e.getMessage());

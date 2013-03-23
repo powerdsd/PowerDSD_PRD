@@ -52,9 +52,9 @@
 									Deportivos</a></li>
                                                         --%>                
 						</ul></li>
-					<li><a href="powerdev_bucar_cancha.html" target="iframe"> Consultas</a></li>
-					<li><a href="Alquiler.jsp" target="iframe"> Reportes</a></li>
-					<li><a href="listarAlquiler.jsp" target="iframe"> Mantenimiento</a></li>
+					<li><a href="Construccion.html" target="iframe"> Consultas</a></li>
+					<li><a href="Construccion.html" target="iframe"> Reportes</a></li>
+					<li><a href="Construccion.html" target="iframe"> Mantenimiento</a></li>
                                         <%--                
 					<li><a href="registrarComentario.jsp" target="iframe">
 							Comentar las canchas</a></li>
@@ -64,7 +64,7 @@
 			
 			
 			<div class="tableleft">
-				<form action="LoginServlet" method="post">
+				<form action="LoginServlet" method="post" >
 					<table style="align: top; padding-top: 0px;" border="0"
 						cellspacing="5" cellpadding="5">
 						<tr>
@@ -79,8 +79,11 @@
 							<td><input name="clave" style="width: 80px;"></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: center;"><input
-								type="submit" value="Entrar" style="width: 80px; height: 20px" /></td>
+							<td colspan="2" style="text-align: center;">
+                                                            <input type="submit" value="Entrar" style="width: 80px; height: 20px">
+                                                                                                                                                                          
+                                                        </td>
+                                                             
 						</tr>
 					</table>
 				</form>

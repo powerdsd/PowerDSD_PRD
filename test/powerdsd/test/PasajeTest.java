@@ -35,7 +35,7 @@ public class PasajeTest {
          
          
 		Cliente cl = new Cliente();
-	  	cl.setDni_cliente("07460003"); 	
+	  	cl.setDni_cliente("07460063"); 	
 		Bus bs = new Bus();
 	  	bs.setNu_Placa("UI-123"); 	
 		Agencia ago = new Agencia();
