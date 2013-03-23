@@ -8,7 +8,7 @@ public class ConexionBD {
 
 public static Connection obtenerConexion() throws SQLException {
 
-        /* System.out.println("BD: 0001"); */
+        /* System.out.println    ("BD: 0001"); */
 	Connection con = null;
 	try {
 		Class.forName("com.mysql.jdbc.Driver");
