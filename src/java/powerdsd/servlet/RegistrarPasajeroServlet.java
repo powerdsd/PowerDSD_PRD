@@ -140,7 +140,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         String txtApeMaterno = request.getParameter("txtApeMaterno");
         String txtNombre = request.getParameter("txtNombre");
         String txtEdad = request.getParameter("txtEdad");
-        String txtBoleto = request.getParameter("txtBoleto");
+        //String txtBoleto = request.getParameter("txtBoleto");
         String txtAsiento = request.getParameter("txtAsiento");
         String txtFechaEmision = request.getParameter("txtFechaEmision");
         String txtFechaPartida = request.getParameter("txtFechaPartida");
@@ -189,11 +189,13 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 
                 List<Object> data =datosPersona(txtNumDoc).getAnyType();
 
+                txtNumDoc = data.get(0).toString();
                 txtNombre = data.get(3).toString();
                 txtApePaterno = data.get(1).toString();
                 txtApeMaterno = data.get(2).toString();
                 txtEdad = "69";
 
+                request.setAttribute("TXTNumDoc", txtNumDoc);
                 request.setAttribute("TXTNombre", txtNombre);
                 request.setAttribute("TXTApePaterno", txtApePaterno);
                 request.setAttribute("TXTApeMaterno", txtApeMaterno);
@@ -219,11 +221,13 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 if (txtAsiento.trim().length() == 0) {
                     throw new DAOExcepcion("Debe ingresar el # de Asiento");
                 }
+                /*
                 if (txtBoleto.trim().length() == 0) {
                     throw new DAOExcepcion("Debe ingresar el # de Boleto");
                 }
+                */
                 int numAsiento = Integer.parseInt(txtAsiento);
-                int numBoleto = Integer.parseInt(txtBoleto);
+                //int numBoleto = Integer.parseInt(txtBoleto);
 
 
                 // Guardando datos en el  scope SESSION
@@ -233,7 +237,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
 
 
-                psjNeg.insertarPasaje(numBoleto, cl, sqlDateVta, bs,
+                psjNeg.insertarPasaje(cl, sqlDateVta, bs,
                         numAsiento, ago, sqlDateVta, txtHoraPartida,
                         agd, sqlDateVta, txtHoraLlegada);
                 System.out.println("se envió insertarPasaje");

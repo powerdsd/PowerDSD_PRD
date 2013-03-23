@@ -20,14 +20,15 @@ import powerdsd.modelo.Pasaje;
 public class PasajeNegocio {
 
     
-    	public void insertarPasaje(int num_pas, Cliente oCliente, Date fec_venta, Bus oBus, 
+    	//public void insertarPasaje(int num_pas, Cliente oCliente, Date fec_venta, Bus oBus, 
+        public void insertarPasaje(Cliente oCliente, Date fec_venta, Bus oBus, 
                 int num_asiento, Agencia oAgeOrigen, Date fec_salida, String hora_salida, 
                 Agencia oAgeDestino, Date fec_llegada, String hora_llegada)throws DAOExcepcion, SQLException{
 		
 		PasajeDAO dao=new PasajeDAO();
 		Pasaje oPasaje=new Pasaje();
 		
-		oPasaje.setNum_pas(num_pas);
+		//oPasaje.setNum_pas(num_pas);
 		oPasaje.setoCliente(oCliente);
 		oPasaje.setFec_venta(fec_venta);
                 oPasaje.setoBus(oBus);
@@ -41,9 +42,11 @@ public class PasajeNegocio {
 
 	try
 	{
+                /*
                 if (oPasaje.getNum_pas()<=0){
 			throw new SQLException("Debe ingresar el número de pasaje");
                 }
+                */
                 if (oCliente == null) {
 			throw new DAOExcepcion("Debe registrar el cliente.");
                 }
@@ -81,10 +84,12 @@ public class PasajeNegocio {
                 }
 
                 
-	//VALIDAR BUS
+	//VALIDAR PASAJE
+                /*
 		if(dao.validarPasaje(num_pas)>0) {
 			throw new SQLException("El código de pasaje " + oPasaje.getNum_pas()+ " ya está registrado");
 		}
+                */
 
                 dao.insertar(oPasaje);
         	}

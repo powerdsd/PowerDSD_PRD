@@ -19,11 +19,13 @@ public class PasajeDAO extends BaseDAO {
 	public void insertar(Pasaje pasaje)throws DAOExcepcion {
 		
 		String query = "";
-		query +="INSERT INTO tb_pasajex(num_pas, dni_cliente, fec_venta, placa, ";
+		//query +="INSERT INTO tb_pasajex(num_pas, dni_cliente, fec_venta, placa, ";
+                query +="INSERT INTO tb_pasajex(dni_cliente, fec_venta, placa, ";
 		query +="num_asiento, age_origen, fec_salida, hora_salida, ";
 		query +="age_destino, fec_llegada, hora_llegada)";
 		query +="VALUES";
-		query +="(?,?,?,?,?,?,?,?,?,?,?)";
+		//query +="(?,?,?,?,?,?,?,?,?,?,?)";
+                query +="(?,?,?,?,?,?,?,?,?,?)";
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -32,17 +34,17 @@ public class PasajeDAO extends BaseDAO {
 		{
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
-			stmt.setInt(1, pasaje.getNum_pas());
-			stmt.setString(2, pasaje.getoCliente().getDni_cliente());
-			stmt.setDate(3, (Date) pasaje.getFec_venta());
-			stmt.setString(4, pasaje.getoBus().getNu_Placa());
-			stmt.setInt(5, pasaje.getNum_asiento());
-			stmt.setString(6, pasaje.getoAgeOrigen().getCodAgencia());
-			stmt.setDate(7, (Date) pasaje.getFec_salida());
-			stmt.setString(8, pasaje.getHora_salida());
-			stmt.setString(9, pasaje.getoAgeDestino().getCodAgencia());
-			stmt.setDate(10, (Date) pasaje.getFec_llegada());
-			stmt.setString(11, pasaje.getHora_llegada());
+			//stmt.setInt(1, pasaje.getNum_pas());
+			stmt.setString(1, pasaje.getoCliente().getDni_cliente());
+			stmt.setDate(2, (Date) pasaje.getFec_venta());
+			stmt.setString(3, pasaje.getoBus().getNu_Placa());
+			stmt.setInt(4, pasaje.getNum_asiento());
+			stmt.setString(5, pasaje.getoAgeOrigen().getCodAgencia());
+			stmt.setDate(6, (Date) pasaje.getFec_salida());
+			stmt.setString(7, pasaje.getHora_salida());
+			stmt.setString(8, pasaje.getoAgeDestino().getCodAgencia());
+			stmt.setDate(9, (Date) pasaje.getFec_llegada());
+			stmt.setString(10, pasaje.getHora_llegada());
 			
 			int i = stmt.executeUpdate();
 			if (i != 1) {
