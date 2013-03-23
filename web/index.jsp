@@ -63,7 +63,7 @@
 			
 			
 			<div class="tableleft">
-				<form action="LoginServlet" method="post">
+				<form action="LoginServlet" method="post" >
 					<table style="align: top; padding-top: 0px;" border="0"
 						cellspacing="5" cellpadding="5">
 						<tr>
@@ -78,8 +78,11 @@
 							<td><input name="clave" style="width: 80px;"></td>
 						</tr>
 						<tr>
-							<td colspan="2" style="text-align: center;"><input
-								type="submit" value="Entrar" style="width: 80px; height: 20px" /></td>
+							<td colspan="2" style="text-align: center;">
+                                                            <input type="submit" value="Entrar" style="width: 80px; height: 20px">
+                                                                                                                                                                          
+                                                        </td>
+                                                             
 						</tr>
 					</table>
 				</form>
