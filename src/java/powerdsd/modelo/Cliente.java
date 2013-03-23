@@ -4,6 +4,8 @@
  */
 package powerdsd.modelo;
 
+import java.util.Date;
+
 /**
  * @author W.Wong
  */
@@ -13,9 +15,10 @@ public class Cliente {
 	private String ape_pat;
 	private String ape_mat;
 	private String nombres;
-	private String edad;
-	private String direccion;
+	private Date fec_nac;
 
+        
+        
     /**
      * @return the dni_cliente
      */
@@ -73,35 +76,23 @@ public class Cliente {
     }
 
     /**
-     * @return the edad
+     * @return the fec_nac
      */
-    public String getEdad() {
-        return edad;
+    public Date getFec_nac() {
+        return fec_nac;
     }
 
     /**
-     * @param edad the edad to set
+     * @param fec_nac the fec_nac to set
      */
-    public void setEdad(String edad) {
-        this.edad = edad;
+    public void setFec_nac(Date fec_nac) {
+        this.fec_nac = fec_nac;
     }
 
-    /**
-     * @return the direccion
-     */
-    public String getDireccion() {
-        return direccion;
-    }
-
-    /**
-     * @param direccion the direccion to set
-     */
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
     public Cliente(){
 		
 	}	
+
 
 }
 

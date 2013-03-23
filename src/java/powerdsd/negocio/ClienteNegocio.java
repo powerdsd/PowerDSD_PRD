@@ -5,6 +5,7 @@
 package powerdsd.negocio;
 
 import java.sql.SQLException;
+import java.util.Date;
 import powerdsd.dao.ClienteDAO;
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Cliente;
@@ -15,7 +16,7 @@ import powerdsd.modelo.Cliente;
  */
 public class ClienteNegocio {
     
-    	public void insertarCliente(String dni_cliente, String ape_pat, String ape_mat, String nombres, String direccion, String edad)throws DAOExcepcion{
+    	public void insertarCliente(String dni_cliente, String ape_pat, String ape_mat, String nombres, Date fec_nac)throws DAOExcepcion{
 		
 		ClienteDAO dao=new ClienteDAO();
 		
@@ -25,8 +26,7 @@ public class ClienteNegocio {
 		oCliente.setApe_pat(ape_pat);
 		oCliente.setApe_mat(ape_mat);
                 oCliente.setNombres(nombres);
-                oCliente.setDireccion(direccion);
-                oCliente.setEdad(edad);
+                oCliente.setFec_nac(fec_nac);
 
 	try
 	{
@@ -41,9 +41,6 @@ public class ClienteNegocio {
                 }
                 if(oCliente.getNombres().trim().length()==0){
 			throw new SQLException("Debe ingresar los nombres del cliente");
-                }
-                if(oCliente.getEdad().trim().length()==0){
-			throw new SQLException("Debe ingresar la edad del cliente");
                 }
 //                if(oCliente.getEdad()<=0){
 //			throw new SQLException("Debe ingresar la edad del cliente");
