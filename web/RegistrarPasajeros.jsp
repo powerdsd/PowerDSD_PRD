@@ -53,13 +53,28 @@
 		     changeMonth: true,
 		     changeYear: true  
            });             
+		   
+	   $("#txtFechaEmision").datepicker({ 
+             showOn: 'button', 
+             buttonImageOnly: true, 
+             buttonImage: 'calendario/images/calendar.gif',  //poner ruta completa
+		     changeMonth: true,
+		     changeYear: true  
+           });             
         });
    </script>
 </head>
 <body>
 <form action="RegistrarPasajeroServlet" method="post">	
-    <!-- <form action=""> -->
-		<table width="643" height="214" border="0" class="letra">
+    
+
+    <!--   <input type="hidden" name="hddaccion" id="hddaccion" value="operacion" />
+           <Input type="hidden" name="boton" id="boton" value = "" />  -->
+     
+    <!-- <form action="">
+    <table width="643" height="214" border="0" class="letra"> -->
+		<table width="643" border="0" class="letra">
+                    
 <tr>
     <td colspan="4" bgcolor="#360"><div align="left">
         <span class="letra2"><em class="blanco">Registro de Pasajeros</em></span>
@@ -82,25 +97,31 @@
 <tr>
     <td><em>N&uacute;mero de Documento de Identidad:</em><em class="rojo">*</em></td>
     <td><span class="letra2"> <input type="text" name="txtNumDoc" id="txtNumD0c" /></span></td>
+    <td><input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/></td>
+
 </tr>
 
 <tr>
     <td><span class="letra2"><em>Nombres:</em><em class="rojo">*</em></span></td>
-    <td><span class="letra2"> <input type="text" name="txtNombre" id="txtNombre" /></span></td>
+    <td><span class="letra2"> <input type="text" name="txtNombre" id="txtNombre" value="<%=request.getAttribute("TXTNombre")%>"/></span></td>
 </tr>
 <tr>
     <td><span class="letra2"><em>Apellido Paterno:</em><em class="rojo">*</em></span></td>
-    <td><span class="letra2"> <input type="text" name="txtApePaterno" id="txtApePaterno" /></span></td>
+    <td><span class="letra2"> <input type="text" name="txtApePaterno" id="txtApePaterno" value="<%=request.getAttribute("TXTApePaterno")%>"/></span></td>
 </tr>
 <tr>
     <td><em>Apellido Materno:</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtApeMaterno" id="txtApeMaterno" /></span></td>
+        <td><span class="letra2"> <input type="text" name="txtApeMaterno" id="txtApeMaterno" value="<%=request.getAttribute("TXTApeMaterno")%>"/></span></td>
 </tr>
 			
 <tr>
     <td><em>Edad</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" /></span></td>
+        <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
+    <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
+    <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
 </tr>
+<tr></tr>
+<tr></tr>
                         <%--
                         <tr>
 				<td><em>Direcci&oacuten:</em><em
@@ -135,12 +156,6 @@
 				<td><em>Agencia:</em></td>
 				<td><span class="letra2"> <input type="text"
 						name="txtAgencia" id="txtAgencia" />
-				</span></td>
-			</tr>
-                        <tr>
-				<td><em>Asiento:</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtAsiento" id="txtAsiento" />
 				</span></td>
 			</tr>
                         <tr>
@@ -225,9 +240,9 @@
                         
         <tr>
             <td><em>Fecha de Partida:</em><em class="rojo">*</em></td>
-            <td><input name="txtFechaPartida" type="text" id="txtFechaPartida" size="15" maxlength="10" value="<%=request.getAttribute("REQfechaini")%>"/></td>
+            <td><input name="txtFechaPartida" type="text" id="txtFechaPartida" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaPartida")%>"/></td>
             <td><em>Fecha de Partida:</em><em class="rojo">*</em></td>
-            <td><input name="txtFechaLlegada" type="text" id="txtFechaLlegada" size="15" maxlength="10" value="<%=request.getAttribute("REQfechafin")%>"/></td>
+            <td><input name="txtFechaLlegada" type="text" id="txtFechaLlegada" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaLlegada")%>"/></td>
         </tr>
         <tr>
                 <td><em>Hora de Partida:</em><em class="rojo">*</em></td>
@@ -284,57 +299,48 @@
                         }
                 %>
 	</td>   
-						                    
     </tr>
 <!-- W.Wong Fin Seleccion de Bus -->
                         
-			<tr>
-				<td><em>Numero de Boleto:</em><em
-					class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtBoleto" id="txtBoleto" />
-				</span></td>
-			</tr>
-			<tr>
-				<td><em>Fecha de Emision:</em><em class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtFechaEmision" id="txtFechaEmision" />
-				</span></td>
-			</tr>
-                        <tr>
-				<td><em>Sub Total:</em><em class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtSubTotal" id="txtSubTotal" />
-				</span></td>
-			</tr>
-                        <tr>
-				<td><em>IGV:</em><em class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtIGV" id="txtIGV" />
-				</span></td>
-			</tr>
-                        <tr>
-				<td><em>Total:</em><em class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtTotal" id="txtTotal" />
-				</span></td>
-			</tr>
+    <tr>
+        <td><em>Numero de Boleto:</em><em class="rojo">*</em></td>
+        <td><span class="letra2"> <input type="text" name="txtBoleto" id="txtBoleto" /></span></td>
+        <td><em>Numero de Asiento:</em><em class="rojo">*</em></td>
+        <td><span class="letra2"> <input type="text" name="txtAsiento" id="txtAsiento" /> </span></td>
+						                    
+    </tr>
+    <tr>
+        <td><em>Fecha de Emision:</em><em class="rojo">*</em></td>
+        <td><input name="txtFechaEmision" type="text" id="txtFechaEmision" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaEmision")%>"/></td>
+    </tr>
+    <tr>
+        <td><em>Sub Total:</em><em class="rojo">*</em></td>
+        <td><span class="letra2"> <input type="text" name="txtSubTotal" id="txtSubTotal" /></span></td>
+    </tr>
+    <tr>
+        <td><em>IGV:</em><em class="rojo">*</em></td>
+	<td><span class="letra2"> <input type="text" name="txtIGV" id="txtIGV" /></span></td>
+    </tr>
+    <tr>
+        <td><em>Total:</em><em class="rojo">*</em></td>
+	<td><span class="letra2"> <input type="text" name="txtTotal" id="txtTotal" /></span></td>
+    </tr>
                         
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-				<td><span class="letra2"> <label> <input
-							type="submit" name="btnCancelar" id="btnCancelar"
-							value="Cancelar" /> <input type="submit" name="btnGuardar"
-							id="btnGuardar" value="Grabar" />
-					</label>
-				</span></td>
-			</tr>
-		</table>
-	</form>
+    <tr>
+        <td>&nbsp;</td>
+	<td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+            <td><span class="letra2"> 
+                <label> 
+                    <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> 
+                    <input type="submit" name="Grabar" id="Grabar" value="Grabar" class="boton" onclick="b"/> 
+                </label> 
+            </span></td>
+    </tr>
+  </table>
+</form>
 
 </body>
 </html>

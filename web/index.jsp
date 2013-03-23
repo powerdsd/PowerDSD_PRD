@@ -39,8 +39,9 @@
 				<ul>
 					<li><a href="#">Registrar</a>
 						<ul class="sub-menu">
-							<li><a href="RegistrarPasajeros.jsp" target="iframe">Pasajeros</a></li>
+							<li><a href="RegistrarPasajeroServlet" target="iframe">Pasajeros</a></li>
 							<%--
+							<li><a href="RegistrarPasajeros.jsp" target="iframe">Pasajeros</a></li>
                                                         <li><a href="RegistroLocal.jsp" target="iframe">Local</a></li>
 							<li><a href="RegistrarCancha.jsp" target="iframe">Canchas
 									de Fulbito</a></li>
