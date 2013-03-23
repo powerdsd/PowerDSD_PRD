@@ -117,8 +117,8 @@
 <tr>
     <td><em>Edad</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
-    <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
-    <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
+        <%--<td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a;"/></td> --%>
+        <%--<td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a;"/></td>  --%>
 </tr>
 <tr></tr>
 <tr></tr>
