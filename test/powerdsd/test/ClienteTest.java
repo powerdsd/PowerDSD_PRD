@@ -25,7 +25,7 @@ public class ClienteTest {
         ClienteNegocio neg = new ClienteNegocio();
 
         try {
-            neg.insertarCliente("a7460004", "Huamán", "Rojas", "Pedro", "Av. Javier Prado # 123", "452");
+            neg.insertarCliente("a7460005", "Huamán", "Rojas", "Pedro", "Av. Javier Prado # 123", "452");
             System.out.println("Cliente registrado con éxito.");
         } catch (DAOExcepcion e) {
             Assert.fail("Fallo: " + e.getMessage());
