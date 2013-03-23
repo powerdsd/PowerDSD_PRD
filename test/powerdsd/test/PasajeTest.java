@@ -30,7 +30,7 @@ public class PasajeTest {
 	    java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);
 		String dateSal = "2013-03-24";
 	    java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
-		String dateLle = "2013-03-21";
+		String dateLle = "2013-03-25";
 	    java.sql.Date sqlDateLle = java.sql.Date.valueOf(dateLle);
          
          
@@ -47,7 +47,7 @@ public class PasajeTest {
          PasajeNegocio neg = new PasajeNegocio();
 
         try {
-            neg.insertarPasaje(002, cl, sqlDateVta, bs, 17, ago, 
+            neg.insertarPasaje(cl, sqlDateVta, bs, 17, ago, 
                     sqlDateSal, "15:00", agd, sqlDateLle, "18:00");
             System.out.println("Pasaje registrado con éxito.");
         } catch (DAOExcepcion e) {
