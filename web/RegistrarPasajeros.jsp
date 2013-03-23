@@ -96,7 +96,7 @@
 </tr>
 <tr>
     <td><em>N&uacute;mero de Documento de Identidad:</em><em class="rojo">*</em></td>
-    <td><span class="letra2"> <input type="text" name="txtNumDoc" id="txtNumD0c" /></span></td>
+    <td><span class="letra2"> <input type="text" name="txtNumDoc" id="txtNumDoc" value="<%=request.getAttribute("TXTNumDoc")%>" /></span></td>
     <td><input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/></td>
 
 </tr>
@@ -302,9 +302,11 @@
     </tr>
 <!-- W.Wong Fin Seleccion de Bus -->
                         
-    <tr>
+<tr>
+        <%--
         <td><em>Numero de Boleto:</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" name="txtBoleto" id="txtBoleto" /></span></td>
+        --%>
         <td><em>Numero de Asiento:</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" name="txtAsiento" id="txtAsiento" /> </span></td>
 						                    
