@@ -116,14 +116,13 @@
     <tr>
         <td><em>Fecha de Nacimiento:</em><em class="rojo">*</em></td>
         <td><input name="txtFechaNacimiento" type="text" id="txtFechaNacimiento" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaNacimiento")%>"/></td>
+    </tr>		
+    <tr>
+        <td><em>Edad</em><em class="rojo">*</em></td>
+        <td><span class="letra2"> <input type="text" disabled="disabled" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
+        <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
+        <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
     </tr>
-			
-<tr>
-    <td><em>Edad</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
-    <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
-    <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
-</tr>
 <tr></tr>
 <tr></tr>
                         <%--
@@ -203,7 +202,7 @@
                             out.println("<OPTION value=\""+ session.getAttribute("CODAgeOrigen")+"\"> - Seleccione - </OPTION>");
                         }
                         for (Agencia x : agencias) {
-                            out.print("<OPTION value=\""+x.getCodAgencia()+ "\"> "+x.getDescripcion()+"</OPTION>");  
+                            out.print("<OPTION value=\""+x.getCodAgencia()+ "\"> " + x.getDescripcion() + "</OPTION>");  
                         }                    
                             out.println("</SELECT >");
                         } else {                    
@@ -239,13 +238,13 @@
                         }
                 %>
 	</td>   
-    </tr>
-<!-- W.Wong Fin Seleccion de Agencias -->
+    </tr>    
+    <!-- W.Wong Fin Seleccion de Agencias -->
                         
         <tr>
             <td><em>Fecha de Partida:</em><em class="rojo">*</em></td>
             <td><input name="txtFechaPartida" type="text" id="txtFechaPartida" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaPartida")%>"/></td>
-            <td><em>Fecha de Partida:</em><em class="rojo">*</em></td>
+            <td><em>Fecha de Llegada:</em><em class="rojo">*</em></td>
             <td><input name="txtFechaLlegada" type="text" id="txtFechaLlegada" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaLlegada")%>"/></td>
         </tr>
         <tr>
