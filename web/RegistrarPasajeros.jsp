@@ -336,8 +336,12 @@
         <td>&nbsp;</td>
             <td><span class="letra2"> 
                 <label> 
-                    <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> 
+                    
+                    <%-- <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> --%>
                     <input type="submit" name="Grabar" id="Grabar" value="Grabar" class="boton" onclick="b"/> 
+                    
+                    <%-- <li><a href="bienvenida.html" target="iframe">Cancelar</a></li> --%>
+                    <a href="bienvenida.html" target="iframe">Cancelar</a>
                 </label> 
             </span></td>
     </tr>
