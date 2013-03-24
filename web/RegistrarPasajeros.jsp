@@ -54,7 +54,7 @@
 		     changeYear: true  
            });             
 		   
-	   $("#txtFechaEmision").datepicker({ 
+	   $("#txtFechaNacimiento").datepicker({ 
              showOn: 'button', 
              buttonImageOnly: true, 
              buttonImage: 'calendario/images/calendar.gif',  //poner ruta completa
@@ -113,6 +113,10 @@
     <td><em>Apellido Materno:</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" name="txtApeMaterno" id="txtApeMaterno" value="<%=request.getAttribute("TXTApeMaterno")%>"/></span></td>
 </tr>
+    <tr>
+        <td><em>Fecha de Nacimiento:</em><em class="rojo">*</em></td>
+        <td><input name="txtFechaNacimiento" type="text" id="txtFechaNacimiento" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaNacimiento")%>"/></td>
+    </tr>
 			
 <tr>
     <td><em>Edad</em><em class="rojo">*</em></td>
@@ -311,10 +315,12 @@
         <td><span class="letra2"> <input type="text" name="txtAsiento" id="txtAsiento" /> </span></td>
 						                    
     </tr>
+<!--    
     <tr>
         <td><em>Fecha de Emision:</em><em class="rojo">*</em></td>
         <td><input name="txtFechaEmision" type="text" id="txtFechaEmision" size="15" maxlength="10" value="<%=request.getAttribute("REQFechaEmision")%>"/></td>
     </tr>
+-->    
     <tr>
         <td><em>Sub Total:</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" name="txtSubTotal" id="txtSubTotal" /></span></td>

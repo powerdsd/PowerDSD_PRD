@@ -24,8 +24,10 @@ import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Agencia;
 import powerdsd.modelo.Bus;
 import powerdsd.modelo.Cliente;
+import powerdsd.dao.ClienteDAO;
 import powerdsd.negocio.AgenciaNegocio;
 import powerdsd.negocio.BusNegocio;
+import powerdsd.negocio.ClienteNegocio;
 import powerdsd.negocio.PasajeNegocio;
 import powerdsd.util.Funciones;
 
@@ -99,6 +101,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             session.setAttribute("OBJAgeDestino", objAgeDestino);
             session.setAttribute("BUSES", buses);
             session.setAttribute("OBJBus", objBus);
+            request.setAttribute("REQFechaNacimiento", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaEmision", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
@@ -139,10 +142,10 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         String txtApePaterno = request.getParameter("txtApePaterno");
         String txtApeMaterno = request.getParameter("txtApeMaterno");
         String txtNombre = request.getParameter("txtNombre");
+        String txtFechaNacimiento = request.getParameter("txtFechaNacimiento");
         String txtEdad = request.getParameter("txtEdad");
-        //String txtBoleto = request.getParameter("txtBoleto");
+      //String txtBoleto = request.getParameter("txtBoleto");
         String txtAsiento = request.getParameter("txtAsiento");
-        String txtFechaEmision = request.getParameter("txtFechaEmision");
         String txtFechaPartida = request.getParameter("txtFechaPartida");
         String txtHoraPartida = request.getParameter("txtHoraPartida");
         String txtFechaLlegada = request.getParameter("txtFechaLlegada");
@@ -163,19 +166,26 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             System.out.println("Boton Reniec=" + request.getParameter("Reniec"));
             System.out.println("Boton Grabar=" + request.getParameter("Grabar"));
 
-
             /*  la funcion modifica las fechas a formato aaaa-mm-dd. */
-            String txtFechaEm = Funciones.cambiaFormatoFecha(txtFechaEmision);
+            String txtFechaNa = Funciones.cambiaFormatoFecha(txtFechaNacimiento);
             String txtFechaPa = Funciones.cambiaFormatoFecha(txtFechaPartida);
             String txtFechaLl = Funciones.cambiaFormatoFecha(txtFechaLlegada);
 
-            String dateVta = txtFechaEm;
-            java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);
+            String dateNac = txtFechaNa;
+            java.sql.Date sqlDateNac = java.sql.Date.valueOf(dateNac);
+
+            String txtFechaEm = Funciones.fechaActualInicial();
+            String dateVta = Funciones.cambiaFormatoFecha(txtFechaEm); 
+            java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);            
             String dateSal = txtFechaPa;
             java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
             String dateLle = txtFechaLl;
             java.sql.Date sqlDateLle = java.sql.Date.valueOf(dateLle);
 
+            request.setAttribute("REQFechaNacimiento", Funciones.fechaActualInicial());
+            request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
+            request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
+            
 // ****************** Inicio consulta Reniec *************************		
 
             if (request.getParameter("Reniec") != null) {
@@ -193,6 +203,9 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 txtNombre = data.get(3).toString();
                 txtApePaterno = data.get(1).toString();
                 txtApeMaterno = data.get(2).toString();
+
+// Aqui falta traer la fecha de nacimiento
+
                 txtEdad = "69";
 
                 request.setAttribute("TXTNumDoc", txtNumDoc);
@@ -204,7 +217,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             } // ****************** Fin consulta Reniec *************************	
             // ****************** Inicio Confirmar *************************		
             else if (request.getParameter("Confirmar") != null) {
-
+                
                 System.out.println("dentro del boton Confirmar");
 
             } // ****************** Fin Confirmar  *************************
@@ -232,14 +245,17 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
                 // Guardando datos en el  scope SESSION
 
-                request.setAttribute("REQFechaEmision", Funciones.fechaActualInicial());
-                request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
-                request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
 
-
+		ClienteDAO dao=new ClienteDAO();
+                ClienteNegocio neg = new ClienteNegocio();
+                
+                System.out.println("validarCliente: " + dao.validarCliente(txtNumDoc) );    
+                if(dao.validarCliente(txtNumDoc)==0) {
+                neg.insertarCliente(txtNumDoc, txtApePaterno, txtApeMaterno, txtNombre, sqlDateNac);
+                }
                 psjNeg.insertarPasaje(cl, sqlDateVta, bs,
-                        numAsiento, ago, sqlDateVta, txtHoraPartida,
-                        agd, sqlDateVta, txtHoraLlegada);
+                        numAsiento, ago, sqlDateSal, txtHoraPartida,
+                        agd, sqlDateLle, txtHoraLlegada);
                 System.out.println("se envió insertarPasaje");
                 request.setAttribute("MSG_ERROR", "El pasaje se registro con exito");
                 System.out.println("despues de resquest");
