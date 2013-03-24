@@ -221,7 +221,7 @@ System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funcion
             else if (request.getParameter("Confirmar") != null) {
 
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
-                System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
+                System.out.println("Fecha Nacimiento : " + txtFechaNacimiento + "Edad : "+ Funciones.calcularEdad(txtFechaNacimiento));
                 request.setAttribute("TXTEdad", txtEdad);
 
                 System.out.println("dentro del boton Confirmar");

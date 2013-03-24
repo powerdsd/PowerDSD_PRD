@@ -120,12 +120,13 @@
     <tr>
         <td><em>Edad</em><em class="rojo">*</em></td>
         <td><span class="letra2"> <input type="text" disabled="disabled" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
+    </tr>
+			
+                        <%--
+    <tr>
         <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
         <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
-    </tr>
-<tr></tr>
-<tr></tr>
-                        <%--
+    </tr>		
                         <tr>
 				<td><em>Direcci&oacuten:</em><em
 					class="rojo">*</em></td>
@@ -341,8 +342,12 @@
         <td>&nbsp;</td>
             <td><span class="letra2"> 
                 <label> 
-                    <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> 
+                    
+                    <%-- <input type="submit" name="btnCancelar" id="btnCancelar" value="Cancelar" /> --%>
                     <input type="submit" name="Grabar" id="Grabar" value="Grabar" class="boton" onclick="b"/> 
+                    
+                    <%-- <li><a href="bienvenida.html" target="iframe">Cancelar</a></li> --%>
+                    <a href="bienvenida.html" target="iframe">Cancelar</a>
                 </label> 
             </span></td>
     </tr>
