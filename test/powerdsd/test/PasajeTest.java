@@ -5,6 +5,8 @@
 package powerdsd.test;
 
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import junit.framework.Assert;
 import org.junit.Test;
 import powerdsd.excepcion.DAOExcepcion;
@@ -22,7 +24,7 @@ public class PasajeTest {
     public PasajeTest() {
     }
     
-     @Test
+    @Test
     // public void hello() {}
      public void RegistrarPasaje() throws SQLException {
 
