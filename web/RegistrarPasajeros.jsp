@@ -128,30 +128,9 @@
         <td><input type="submit" name="Rechazar" id="Rechazar" value="Rechazar" class="boton" onclick="a"/></td>
     </tr>		
                         <tr>
-				<td><em>Direcci&oacuten:</em><em
-					class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtDireccion" id="txtDireccion" />
-				</span></td>
-			</tr>
-                        <tr>
-				<td><span class="letra2"><em>DNI:</em><em
-						class="rojo">*</em></span></td>
-				<td><span class="letra2"> <input type="text"
-						name="txtDNI" id="txtDNI" />
-				</span></td>
-			</tr>
-                        
-                        <tr>
 				<td><em>Hora de Emision:</em><em class="rojo">*</em></td>
 				<td><span class="letra2"> <input type="text"
 						name="txtHoraEmision" id="txtHoraEmision" />
-				</span></td>
-			</tr>
-			<tr>
-				<td><em>Hora Emisión:</em><em class="rojo">*</em></td>
-				<td><span class="letra2"> <input type="password"
-						name="txtPassword" id="txtPassword" />
 				</span></td>
 			</tr>
 			<tr>
