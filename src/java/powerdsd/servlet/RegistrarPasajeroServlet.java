@@ -206,7 +206,9 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
 // Aqui falta traer la fecha de nacimiento
 
-                txtEdad = "69";
+                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
+                
+System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
 
                 request.setAttribute("TXTNumDoc", txtNumDoc);
                 request.setAttribute("TXTNombre", txtNombre);
@@ -217,7 +219,13 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             } // ****************** Fin consulta Reniec *************************	
             // ****************** Inicio Confirmar *************************		
             else if (request.getParameter("Confirmar") != null) {
-                
+
+                /*
+                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
+                System.out.println("Fecha Nacimiento : " + txtFechaNacimiento + "Edad : "+ Funciones.calcularEdad(txtFechaNacimiento));
+                request.setAttribute("TXTEdad", txtEdad);
+                */ 
+
                 System.out.println("dentro del boton Confirmar");
 
             } // ****************** Fin Confirmar  *************************
@@ -241,7 +249,6 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 */
                 int numAsiento = Integer.parseInt(txtAsiento);
                 //int numBoleto = Integer.parseInt(txtBoleto);
-
 
                 // Guardando datos en el  scope SESSION
 

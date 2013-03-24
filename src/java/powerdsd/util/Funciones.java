@@ -247,4 +247,22 @@ public class Funciones {
             return false;
         }
     }
+    
+    public static int calcularEdad(String fecha) {
+
+        int dia, mes, anho;
+         dia = Integer.parseInt(fecha.substring(0,2));
+         mes = Integer.parseInt(fecha.substring(3,5));
+         anho = Integer.parseInt(fecha.substring(6,10));
+        
+        Calendar dateOfBirth = new GregorianCalendar(anho, mes - 1, dia);
+	    Calendar today = Calendar.getInstance();
+	    int age = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+	    dateOfBirth.add(Calendar.YEAR, age);
+	    if (today.before(dateOfBirth))
+	        age--;
+        
+        return age;
+        
+      }
 }
