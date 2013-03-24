@@ -23,9 +23,13 @@ public class ClienteTest {
      public void RegistrarCliente() {
 
         ClienteNegocio neg = new ClienteNegocio();
+        
+        // Fecha de Nacimiento
+        String dateNac = "1975-01-01";
+        java.sql.Date sqlDateNac = java.sql.Date.valueOf(dateNac);
 
         try {
-            neg.insertarCliente("a7460005", "Huamán", "Rojas", "Pedro", "Av. Javier Prado # 123", "452");
+            neg.insertarCliente("07460006", "Chuiman", "Perez", "Jose", sqlDateNac);
             System.out.println("Cliente registrado con éxito.");
         } catch (DAOExcepcion e) {
             Assert.fail("Fallo: " + e.getMessage());

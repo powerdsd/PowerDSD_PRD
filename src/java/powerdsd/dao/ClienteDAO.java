@@ -5,6 +5,7 @@
 package powerdsd.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,9 +20,9 @@ public class ClienteDAO extends BaseDAO {
 		
 		String query = "";
 		query +="INSERT INTO tb_cliente(dni_cliente, ape_pat, ape_mat,";
-		query +="nombres, direccion, edad)";
+		query +="nombres, fec_nacimiento)";
 		query +="VALUES";
-		query +="(?,?,?,?,?,?)";
+		query +="(?,?,?,?,?)";
 		
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -34,8 +35,7 @@ public class ClienteDAO extends BaseDAO {
 			stmt.setString(2,cliente.getApe_pat());
 			stmt.setString(3,cliente.getApe_mat());
 			stmt.setString(4,cliente.getNombres());
-			stmt.setString(5,cliente.getDireccion());
-			stmt.setString(6,cliente.getEdad());
+			stmt.setDate(5, (Date) cliente.getFec_nac());
 			
 			int i = stmt.executeUpdate();
 			if (i != 1) {
