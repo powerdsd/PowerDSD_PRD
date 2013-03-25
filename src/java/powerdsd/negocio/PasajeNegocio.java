@@ -42,36 +42,26 @@ public class PasajeNegocio {
 
 	try
 	{
-                /*
-                if (oPasaje.getNum_pas()<=0){
-			throw new SQLException("Debe ingresar el número de pasaje");
+                if (oPasaje.getoCliente()== null){
+			throw new SQLException("Debe registrar el cliente.");
                 }
-                */
-                if (oCliente == null) {
-			throw new DAOExcepcion("Debe registrar el cliente.");
-                }
-/*                if(oPasaje.getFec_venta().trim().length()==0){
-			throw new SQLException("Debe ingresar la Marca del vehículo");
-                }
-*/
-                if (oBus == null) {
-			throw new DAOExcepcion("Debe indicar la placa del Bus.");
+                if (oPasaje.getoBus().getNu_Placa()==null){
+			throw new SQLException("Debe indicar la placa del Bus.");
                 }
                 if (oPasaje.getNum_asiento()<=0){
 			throw new SQLException("Debe indicar el número de asiento");
                 }
-                if (oAgeOrigen == null) {
-			throw new DAOExcepcion("Debe indicar la Agencia Origen.");
+                if (oPasaje.getoAgeOrigen().getCodAgencia()== null){
+			throw new SQLException("Debe indicar la Agencia Origen.");
+                }
+                if (oPasaje.getoAgeDestino().getCodAgencia()== null){
+			throw new SQLException("Debe indicar la Agencia Destino.");
                 }
                 if (oPasaje.getHora_salida().trim().length()==0){
 			throw new SQLException("Debe ingresar la Hora de Salida");
                 }
-                if (oAgeDestino == null) {
-			throw new DAOExcepcion("Debe indicar la Agencia Destino.");
-                }
-// 
                 if (oPasaje.getoAgeOrigen().getCodAgencia().equals(oPasaje.getoAgeDestino().getCodAgencia())) {
-			throw new DAOExcepcion("Las agencias Origen y Destino deben ser diferentes.");
+			throw new SQLException("Las agencias Origen y Destino deben ser diferentes.");
                 }
                 if (oPasaje.getHora_llegada().trim().length()==0){
 			throw new SQLException("Debe ingresar la Hora de Llegada");
