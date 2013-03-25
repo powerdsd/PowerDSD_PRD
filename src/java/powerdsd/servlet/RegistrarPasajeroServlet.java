@@ -212,11 +212,13 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 
                 List<Object> data =datosPersona(txtNumDoc).getAnyType();
 
-                txtNumDoc = data.get(0).toString();
-                txtNombre = data.get(3).toString();
-                txtApePaterno = data.get(1).toString();
-                txtApeMaterno = data.get(2).toString();
-                txtFechaNacimiento = data.get(4).toString();
+                if (!data.isEmpty()) {
+                    txtNumDoc = data.get(0).toString();
+                    txtNombre = data.get(3).toString();
+                    txtApePaterno = data.get(1).toString();
+                    txtApeMaterno = data.get(2).toString();
+                    txtFechaNacimiento = data.get(4).toString();
+                }
 
 // Aqui falta traer la fecha de nacimiento
 
