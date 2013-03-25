@@ -47,7 +47,8 @@ public class DatosReniecServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet DatosReniecServlet at " + request.getContextPath() + "</h1>");
             
-             String dni="25723525";
+            //String dni="25723525";
+            String dni="2572352";
             ArrayList persona = new ArrayList();
             //out.println("Resultado:"+datosPersona(dni));
             for(int i=0;i<4;i++)

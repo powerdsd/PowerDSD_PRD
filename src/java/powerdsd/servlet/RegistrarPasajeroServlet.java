@@ -216,17 +216,19 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 txtNombre = data.get(3).toString();
                 txtApePaterno = data.get(1).toString();
                 txtApeMaterno = data.get(2).toString();
+                txtFechaNacimiento = data.get(4).toString();
 
 // Aqui falta traer la fecha de nacimiento
 
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
                 
-System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
+                System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
 
                 request.setAttribute("TXTNumDoc", txtNumDoc);
                 request.setAttribute("TXTNombre", txtNombre);
                 request.setAttribute("TXTApePaterno", txtApePaterno);
                 request.setAttribute("TXTApeMaterno", txtApeMaterno);
+                request.setAttribute("REQFechaNacimiento", txtFechaNacimiento);
                 request.setAttribute("TXTEdad", txtEdad);
 
             } // ****************** Fin consulta Reniec *************************	
