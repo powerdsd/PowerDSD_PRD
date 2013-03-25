@@ -105,6 +105,17 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             request.setAttribute("REQFechaEmision", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
+            request.setAttribute("TXTNumDoc", "");
+            request.setAttribute("TXTNombre", "");
+            request.setAttribute("TXTApePaterno", "");
+            request.setAttribute("TXTApeMaterno", "");
+            request.setAttribute("TXTEdad", "");
+            request.setAttribute("CODAgeOrigen", "");
+            request.setAttribute("CODAgeDestino", "");
+            request.setAttribute("NUPlaca", objBus.getNu_Placa());
+            request.setAttribute("REQHoraPartida", "");
+            request.setAttribute("REQHoraLlegada", "");
+            request.setAttribute("TXTAsiento", "");
 
         } catch (DAOExcepcion e) {
             request.setAttribute(
@@ -129,7 +140,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 	HttpSession sesion = request.getSession();		
+         	HttpSession sesion = request.getSession();		
 
         PasajeNegocio psjNeg = new PasajeNegocio();
 
@@ -160,6 +171,8 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         Agencia agd = new Agencia();
         agd.setCodAgencia(codAgeDestino);
 
+        Bus objBus = (Bus) sesion.getAttribute("OBJBus");
+        
         try {
             String accion = request.getParameter("hddaccion");
             System.out.println("Valor del boton: " + accion);
@@ -221,9 +234,7 @@ System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funcion
             else if (request.getParameter("Confirmar") != null) {
 
                 /*
-                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
                 System.out.println("Fecha Nacimiento : " + txtFechaNacimiento + "Edad : "+ Funciones.calcularEdad(txtFechaNacimiento));
-                request.setAttribute("TXTEdad", txtEdad);
                 */ 
 
                 System.out.println("dentro del boton Confirmar");
@@ -238,6 +249,9 @@ System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funcion
             else if (request.getParameter("Grabar") != null) {
 
                 System.out.println("dentro del boton Grabar");
+
+                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
+                request.setAttribute("TXTEdad", txtEdad);
 
                 if (txtAsiento.trim().length() == 0) {
                     throw new DAOExcepcion("Debe ingresar el # de Asiento");
@@ -271,17 +285,42 @@ System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funcion
 
             // TODO Auto-generated catch block
             //e.printStackTrace();
+
+            objBus = (Bus) sesion.getAttribute("OBJBus");
+
             System.out.println("dentro del Catch Dao");
             request.setAttribute("MSG_ERROR", e.getMessage());
+        System.out.println(e.getMessage());
         } catch (SQLException ex) {
+
+            objBus = (Bus) sesion.getAttribute("OBJBus");            
+            
             System.out.println("dentro del Catch Sql");
             request.setAttribute("MSG_ERROR", ex.getMessage());
+        System.out.println(ex.getMessage());
         }
-        System.out.println("Antes del RequestDispatcher");
+        //LAS GUARDO PARA COLOCARLAS EN LAS CAJAS RESPECTIVAS
+            request.setAttribute("TXTNumDoc", txtNumDoc);
+            request.setAttribute("TXTNombre", txtNombre);
+            request.setAttribute("TXTApePaterno", txtApePaterno);
+            request.setAttribute("TXTApeMaterno", txtApeMaterno);
+            request.setAttribute("TXTEdad", txtEdad);
+            request.setAttribute("REQFechaNacimiento", txtFechaNacimiento);
+            request.setAttribute("REQFechaPartida", txtFechaPartida);
+            request.setAttribute("REQFechaLlegada", txtFechaLlegada);
+            request.setAttribute("REQHoraPartida", txtHoraPartida);
+            request.setAttribute("REQHoraLlegada", txtHoraLlegada);
+            request.setAttribute("TXTAsiento", txtAsiento);
+		objBus = (Bus) sesion.getAttribute("OBJBus");
+//          request.setAttribute("NUPlaca", objBus.setNu_Placa(nu_Placa));
+        
 // Forward llama al jsp	
         RequestDispatcher rd = request.getRequestDispatcher("RegistrarPasajeros.jsp");
-        rd.forward(request, response);
+          rd.forward(request, response);
 
+//Para redirigir de una servlet a una pagina jsp agrega esta linea (2013-03-24 18:40): 
+//getServletConfig().getServletContext().getRequestDispatcher("/RegistrarPasajeros.jsp").forward(request, response);        
+        
 //        processRequest(request, response); linea original
     }
 

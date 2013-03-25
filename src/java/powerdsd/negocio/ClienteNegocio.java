@@ -9,6 +9,7 @@ import java.util.Date;
 import powerdsd.dao.ClienteDAO;
 import powerdsd.excepcion.DAOExcepcion;
 import powerdsd.modelo.Cliente;
+import powerdsd.util.Funciones;
 
 /**
  *
@@ -16,9 +17,9 @@ import powerdsd.modelo.Cliente;
  */
 public class ClienteNegocio {
     
-    	public void insertarCliente(String dni_cliente, String ape_pat, String ape_mat, String nombres, Date fec_nac)throws DAOExcepcion{
+    	public void insertarCliente(String dni_cliente, String ape_pat, String ape_mat, String nombres, Date fec_nac)throws SQLException, DAOExcepcion{
 		
-		ClienteDAO dao=new ClienteDAO();
+		ClienteDAO dao=new ClienteDAO();				
 		
 		Cliente oCliente=new Cliente();
 		
@@ -33,27 +34,32 @@ public class ClienteNegocio {
 		if(oCliente.getDni_cliente().trim().length()<8){
 			throw new SQLException("El DNI no es válido");
                 }
+                if(oCliente.getApe_pat()==null){
+			throw new SQLException("Debe ingresar el apellido paterno");
+                }
+                if(oCliente.getApe_pat()=="null"){
+			throw new SQLException("Debe ingresar el apellido paterno");
+                }
                 if(oCliente.getApe_pat().trim().length()==0){
 			throw new SQLException("Debe ingresar el apellido paterno");
+                }
+                if(oCliente.getApe_mat()==null){
+			throw new SQLException("Debe ingresar el apellido materno");
                 }
                 if(oCliente.getApe_mat().trim().length()==0){
 			throw new SQLException("Debe ingresar el apellido materno");
                 }
+                if(oCliente.getNombres()==null){
+			throw new SQLException("Debe ingresar los nombres del cliente");
+                }
                 if(oCliente.getNombres().trim().length()==0){
 			throw new SQLException("Debe ingresar los nombres del cliente");
                 }
-//                if(oCliente.getEdad()<=0){
-//			throw new SQLException("Debe ingresar la edad del cliente");
-//                }
-//                if(oCliente.getDireccion().length()==0){
-//			throw new SQLException("Debe ingresar la dirección del cliente");
-//                }
 	//VALIDAR CLIENTE
 		if(dao.validarCliente(dni_cliente)>0) {
 			throw new SQLException("El cliente con DNI " + oCliente.getDni_cliente()+ " ya está registrado");
 		}
-                
-                dao.insertar(oCliente);
+                        dao.insertar(oCliente);                
         	}
 	catch(SQLException e)
 		{
