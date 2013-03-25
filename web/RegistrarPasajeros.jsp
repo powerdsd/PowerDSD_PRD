@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<link type="text/css" href="calendario/css/jquery-ui.css" rel="stylesheet" />    
-<link type="text/css" href="css/general.css" rel="stylesheet" />  
-<link type="text/css" href="css/panelEmergente.css" rel="stylesheet" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" >
+<link type="text/css" href="calendario/css/jquery-ui.css" rel="stylesheet" >    
+<link type="text/css" href="css/general.css" rel="stylesheet" >  
+<link type="text/css" href="css/panelEmergente.css" rel="stylesheet" > 
 <title>Registrar Pasajeros</title>
 <style type="text/css">
 .blanco {
@@ -229,10 +228,10 @@
         </tr>
         <tr>
                 <td><em>Hora de Partida:</em><em class="rojo">*</em></td>
-		<td><span class="letra2"> <input type="text" name="txtHoraPartida" id="txtHoraPartida" />
+		<td><span class="letra2"> <input type="text" name="txtHoraPartida" id="txtHoraPartida" value="<%=request.getAttribute("REQHoraPartida")%>"/>
                 </span></td>
                 <td><em>Hora de Llegada:</em><em class="rojo">*</em></td>
-		<td><span class="letra2"> <input type="text" name="txtHoraLlegada" id="txtHoraLlegada" />
+		<td><span class="letra2"> <input type="text" name="txtHoraLlegada" id="txtHoraLlegada" value="<%=request.getAttribute("REQHoraLlegada")%>"/>
                 </span></td>
 	</tr>
                     <%--
@@ -261,7 +260,7 @@
                     Collection<Bus> buses = (ArrayList<Bus>) session.getAttribute("BUSES");
                     if (buses != null) {
                     %>
-                    <select name="nu_Placa" id="nu_Placa">
+                    <select name="nu_Placa" id="nu_Placa" >
                     <%
                     if (session.getAttribute("NUPlaca")!=null){
                         for (Bus bus : buses) {
@@ -291,7 +290,7 @@
         <td><span class="letra2"> <input type="text" name="txtBoleto" id="txtBoleto" /></span></td>
         --%>
         <td><em>Numero de Asiento:</em><em class="rojo">*</em></td>
-        <td><span class="letra2"> <input type="text" name="txtAsiento" id="txtAsiento" /> </span></td>
+        <td><span class="letra2"> <input type="text" name="txtAsiento" id="txtAsiento" value="<%=request.getAttribute("TXTAsiento")%>"/> </span></td>
 						                    
     </tr>
 <!--    
@@ -329,8 +328,28 @@
                     <a href="bienvenida.html" target="iframe">Cancelar</a>
                 </label> 
             </span></td>
+
+    </tr>    
+    <tr> 
+    <%          /*recojo la variable de error*/
+	            String msgerror = "";	            
+	             if(request.getAttribute("MSG_ERROR")!= null){
+	            	 msgerror =(String)request.getAttribute("MSG_ERROR");
+	             }
+	             if(msgerror.equals("") == true){
+                         
+        	} else	{//del error
+    %>
+            <p><font color="red">${MSG_ERROR}</font></p> 
+    <%
+            }		        				
+    %>
+
     </tr>
-  </table>
+
+
+
+    </table>
 </form>
 
 </body>
