@@ -215,8 +215,8 @@
                         }                    
                             out.println("</SELECT >");
                         }
-                %>
-	</td>   
+                %>  
+	</td>  
     </tr>    
     <!-- W.Wong Fin Seleccion de Agencias -->
                         
@@ -279,7 +279,7 @@
                         } else {                    
                         out.println("<font color=red>No hay VEHICULOS registrados</font>");
                         }
-                %>
+                %>             
 	</td>   
     </tr>
 <!-- W.Wong Fin Seleccion de Bus -->
@@ -344,9 +344,9 @@
     <%
             }		        				
     %>
-
+                
     </tr>
-
+                
 
 
     </table>

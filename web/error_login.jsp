@@ -15,7 +15,7 @@
 <link type="text/css" href="css/general.css" rel="stylesheet" />  
 <link type="text/css" href="css/panelEmergente.css" rel="stylesheet" /> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title> JSP Page</title>
+        <title>Módulo de Alertas y Monitoreo en el Tansporte PowerDSD</title>
     </head>
     <body>
      
