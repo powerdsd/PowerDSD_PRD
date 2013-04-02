@@ -1,0 +1,62 @@
+CREATE DATABASE  IF NOT EXISTS `db_transporte` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `db_transporte`;
+-- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
+--
+-- Host: localhost    Database: db_transporte
+-- ------------------------------------------------------
+-- Server version	5.5.15
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `tb_pasajex`
+--
+
+DROP TABLE IF EXISTS `tb_pasajex`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_pasajex` (
+  `num_pas` int(11) NOT NULL AUTO_INCREMENT,
+  `dni_cliente` char(8) DEFAULT NULL,
+  `fec_venta` date DEFAULT NULL,
+  `placa` char(8) DEFAULT NULL,
+  `num_asiento` int(11) DEFAULT NULL,
+  `age_origen` char(4) DEFAULT NULL,
+  `fec_salida` date DEFAULT NULL,
+  `hora_salida` time DEFAULT NULL,
+  `age_destino` char(4) DEFAULT NULL,
+  `fec_llegada` date DEFAULT NULL,
+  `hora_llegada` time DEFAULT NULL,
+  PRIMARY KEY (`num_pas`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_pasajex`
+--
+
+LOCK TABLES `tb_pasajex` WRITE;
+/*!40000 ALTER TABLE `tb_pasajex` DISABLE KEYS */;
+INSERT INTO `tb_pasajex` VALUES (1,'08684848','2013-03-01','ab2870',12,'001','2013-03-01','12:00:00','002','2013-03-01','14:00:00'),(2,'07460063','2013-03-24','UI-123',17,'0002','2013-03-24','15:00:00','0003','2013-03-25','18:00:00'),(11,'08684848','2013-03-23','ab2870',20,'002','2013-03-23','18:00:00','001','2013-03-23','23:00:00'),(12,'08684848','2013-03-26','ab2870',15,'001','2013-03-26','18:00:00','002','2013-03-26','23:00:00'),(13,'07460063','2013-03-24','UI-123',17,'0002','2013-03-24','15:00:00','0003','2013-03-25','18:00:00'),(14,'07460063','2013-03-24','UI-123',17,'0002','2013-03-24','15:00:00','0003','2013-03-25','18:00:00'),(15,'08684848','2013-03-23','ab2870',55,'002','2013-03-23','18:00:00','001','2013-03-23','23:00:00'),(16,'08684848','2013-03-23','ab2870',22,'001','2013-03-23','18:00:00','002','2013-03-23','23:00:00');
+/*!40000 ALTER TABLE `tb_pasajex` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-03-23 17:26:38
