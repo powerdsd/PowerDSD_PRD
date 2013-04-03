@@ -4,14 +4,12 @@
  */
 package powerdsd.servlet;
 
+import com.sun.jersey.api.client.ClientResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +27,7 @@ import powerdsd.negocio.AgenciaNegocio;
 import powerdsd.negocio.BusNegocio;
 import powerdsd.negocio.ClienteNegocio;
 import powerdsd.negocio.PasajeNegocio;
+import powerdsd.rest.ClienteREST;
 import powerdsd.util.Funciones;
 
 /**
@@ -220,8 +219,6 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                     txtFechaNacimiento = data.get(4).toString();
                 }
 
-// Aqui falta traer la fecha de nacimiento
-
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
                 
                 System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
@@ -237,10 +234,8 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             // ****************** Inicio Confirmar *************************		
             else if (request.getParameter("Confirmar") != null) {
 
-                /*
-                System.out.println("Fecha Nacimiento : " + txtFechaNacimiento + "Edad : "+ Funciones.calcularEdad(txtFechaNacimiento));
-                */ 
-
+            ClienteREST client=new ClienteREST();
+            System.out.println(client.validaRequisitoria(txtNumDoc));
                 System.out.println("dentro del boton Confirmar");
 
             } // ****************** Fin Confirmar  *************************
@@ -257,15 +252,11 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
                 request.setAttribute("TXTEdad", txtEdad);
 
-                if (txtAsiento.trim().length() == 0) {
-                    throw new DAOExcepcion("Debe ingresar el # de Asiento");
-                }
                 /*
                 if (txtBoleto.trim().length() == 0) {
                     throw new DAOExcepcion("Debe ingresar el # de Boleto");
                 }
                 */
-                int numAsiento = Integer.parseInt(txtAsiento);
                 //int numBoleto = Integer.parseInt(txtBoleto);
 
                 // Guardando datos en el  scope SESSION
@@ -278,6 +269,11 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 if(dao.validarCliente(txtNumDoc)==0) {
                 neg.insertarCliente(txtNumDoc, txtApePaterno, txtApeMaterno, txtNombre, sqlDateNac);
                 }
+                if (txtAsiento.trim().length() == 0) {
+                    throw new DAOExcepcion("Debe ingresar el # de Asiento");
+                }
+                int numAsiento = Integer.parseInt(txtAsiento);
+
                 psjNeg.insertarPasaje(cl, sqlDateVta, bs,
                         numAsiento, ago, sqlDateSal, txtHoraPartida,
                         agd, sqlDateLle, txtHoraLlegada);
@@ -294,14 +290,16 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
             System.out.println("dentro del Catch Dao");
             request.setAttribute("MSG_ERROR", e.getMessage());
-        System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
+          
         } catch (SQLException ex) {
 
             objBus = (Bus) sesion.getAttribute("OBJBus");            
             
             System.out.println("dentro del Catch Sql");
             request.setAttribute("MSG_ERROR", ex.getMessage());
-        System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
+            
         }
         //LAS GUARDO PARA COLOCARLAS EN LAS CAJAS RESPECTIVAS
             request.setAttribute("TXTNumDoc", txtNumDoc);
@@ -320,10 +318,12 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         
 // Forward llama al jsp	
         RequestDispatcher rd = request.getRequestDispatcher("RegistrarPasajeros.jsp");
-          rd.forward(request, response);
+        rd.forward(request, response);
 
-//Para redirigir de una servlet a una pagina jsp agrega esta linea (2013-03-24 18:40): 
-//getServletConfig().getServletContext().getRequestDispatcher("/RegistrarPasajeros.jsp").forward(request, response);        
+//			System.out.println(e.getMessage());
+//			sesion.setAttribute("ERROR_MSG", e.getMessage());
+//			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
+//			rd.forward(request, response);
         
 //        processRequest(request, response); linea original
     }

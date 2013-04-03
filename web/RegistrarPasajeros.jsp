@@ -121,6 +121,9 @@
         <td><span class="letra2"> <input type="text" disabled="disabled" name="txtEdad" id="txtEdad" value="<%=request.getAttribute("TXTEdad")%>"/></span></td>
     </tr>
 			
+    <tr>
+        <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
+    </tr>		
                         <%--
     <tr>
         <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
