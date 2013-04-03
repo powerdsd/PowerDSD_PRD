@@ -126,4 +126,27 @@ System.out.println("CodEstado:"+players.getCodEstado());
 } 
     
 }
+    public boolean validaRequisitoria(String dni) throws UniformInterfaceException
+{
+ClienteREST client1=new ClienteREST();
+ClientResponse response=client1.findByDni(ClientResponse.class, dni);
+
+GenericType<List<TbRequisitoria>> genericType = new GenericType<List<TbRequisitoria>>() {};
+// Returns an ArrayList of Players from the web service
+List<TbRequisitoria> data= new ArrayList<TbRequisitoria>();
+data=(response.getEntity(genericType));
+if (data.isEmpty()) { 
+    return false;
+}
+else {
+System.out.println("Retreiving and Displaying Players Details");
+for( TbRequisitoria players:data ){
+System.out.println("IdReq: "+players.getIdReq());
+System.out.println("DniPersona: "+players.getDniPersona());
+System.out.println("CodDelito: "+players.getCodDelito());
+System.out.println("CodEstado:"+players.getCodEstado());
+} 
+    return true;
+}
+}
 }
