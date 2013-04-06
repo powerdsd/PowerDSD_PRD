@@ -5,11 +5,14 @@
 package powerdsd.servlet;
 
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -139,7 +142,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-         	HttpSession sesion = request.getSession();		
+        HttpSession sesion = request.getSession();
 
         PasajeNegocio psjNeg = new PasajeNegocio();
 
@@ -154,7 +157,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         String txtNombre = request.getParameter("txtNombre");
         String txtFechaNacimiento = request.getParameter("txtFechaNacimiento");
         String txtEdad = request.getParameter("txtEdad");
-      //String txtBoleto = request.getParameter("txtBoleto");
+        //String txtBoleto = request.getParameter("txtBoleto");
         String txtAsiento = request.getParameter("txtAsiento");
         String txtFechaPartida = request.getParameter("txtFechaPartida");
         String txtHoraPartida = request.getParameter("txtHoraPartida");
@@ -171,7 +174,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         agd.setCodAgencia(codAgeDestino);
 
         Bus objBus = (Bus) sesion.getAttribute("OBJBus");
-        
+
         try {
             String accion = request.getParameter("hddaccion");
             System.out.println("Valor del boton: " + accion);
@@ -187,8 +190,8 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             java.sql.Date sqlDateNac = java.sql.Date.valueOf(dateNac);
 
             String txtFechaEm = Funciones.fechaActualInicial();
-            String dateVta = Funciones.cambiaFormatoFecha(txtFechaEm); 
-            java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);            
+            String dateVta = Funciones.cambiaFormatoFecha(txtFechaEm);
+            java.sql.Date sqlDateVta = java.sql.Date.valueOf(dateVta);
             String dateSal = txtFechaPa;
             java.sql.Date sqlDateSal = java.sql.Date.valueOf(dateSal);
             String dateLle = txtFechaLl;
@@ -197,19 +200,19 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             request.setAttribute("REQFechaNacimiento", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaPartida", Funciones.fechaActualInicial());
             request.setAttribute("REQFechaLlegada", Funciones.fechaActualInicial());
-            
+
 // ****************** Inicio consulta Reniec *************************		
 
             if (request.getParameter("Reniec") != null) {
 
                 System.out.println("dentro del boton Reniec");
-                
-                for(Object o :datosPersona(txtNumDoc).getAnyType()){
+
+                for (Object o : datosPersona(txtNumDoc).getAnyType()) {
                     System.out.println(o);
-                
+
                 }
-                
-                List<Object> data =datosPersona(txtNumDoc).getAnyType();
+
+                List<Object> data = datosPersona(txtNumDoc).getAnyType();
 
                 if (!data.isEmpty()) {
                     txtNumDoc = data.get(0).toString();
@@ -220,8 +223,8 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 }
 
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
-                
-                System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: "+ Funciones.calcularEdad(txtFechaNacimiento));
+
+                System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: " + Funciones.calcularEdad(txtFechaNacimiento));
 
                 request.setAttribute("TXTNumDoc", txtNumDoc);
                 request.setAttribute("TXTNombre", txtNombre);
@@ -234,9 +237,10 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             // ******************  Inicio Confirmar *************************		
             else if (request.getParameter("Confirmar") != null) {
 
-            ClienteREST client=new ClienteREST();
-            System.out.println(client.validaRequisitoria(txtNumDoc));
-                System.out.println("dentro del boton Confirmar");
+                ClienteREST clientRest = new ClienteREST();
+               
+                
+                request.setAttribute("requisitorias",  clientRest.obtenerDatosRequisitoria(txtNumDoc));
 
             } // ****************** Fin Confirmar  *************************
             // ****************** Inicio Rechazar *************************		
@@ -249,25 +253,25 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
                 System.out.println("dentro del boton Grabar");
 
-                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));               
+                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
                 request.setAttribute("TXTEdad", txtEdad);
 
                 /*
-                if (txtBoleto.trim().length() == 0) {
-                    throw new DAOExcepcion("Debe ingresar el # de Boleto");
-                }
-                */
+                 if (txtBoleto.trim().length() == 0) {
+                 throw new DAOExcepcion("Debe ingresar el # de Boleto");
+                 }
+                 */
                 //int numBoleto = Integer.parseInt(txtBoleto);
 
                 // Guardando datos en el  scope SESSION
 
 
-		ClienteDAO dao=new ClienteDAO();
+                ClienteDAO dao = new ClienteDAO();
                 ClienteNegocio neg = new ClienteNegocio();
-                
-                System.out.println("validarCliente: " + dao.validarCliente(txtNumDoc) );    
-                if(dao.validarCliente(txtNumDoc)==0) {
-                neg.insertarCliente(txtNumDoc, txtApePaterno, txtApeMaterno, txtNombre, sqlDateNac);
+
+                System.out.println("validarCliente: " + dao.validarCliente(txtNumDoc));
+                if (dao.validarCliente(txtNumDoc) == 0) {
+                    neg.insertarCliente(txtNumDoc, txtApePaterno, txtApeMaterno, txtNombre, sqlDateNac);
                 }
                 if (txtAsiento.trim().length() == 0) {
                     throw new DAOExcepcion("Debe ingresar el # de Asiento");
@@ -291,31 +295,35 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             System.out.println("dentro del Catch Dao");
             request.setAttribute("MSG_ERROR", e.getMessage());
             System.out.println(e.getMessage());
-          
+
         } catch (SQLException ex) {
 
-            objBus = (Bus) sesion.getAttribute("OBJBus");            
-            
+            objBus = (Bus) sesion.getAttribute("OBJBus");
+
             System.out.println("dentro del Catch Sql");
             request.setAttribute("MSG_ERROR", ex.getMessage());
             System.out.println(ex.getMessage());
-            
+
+        } catch (UniformInterfaceException ex) {
+            Logger.getLogger(RegistrarPasajeroServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(RegistrarPasajeroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         //LAS GUARDO PARA COLOCARLAS EN LAS CAJAS RESPECTIVAS
-            request.setAttribute("TXTNumDoc", txtNumDoc);
-            request.setAttribute("TXTNombre", txtNombre);
-            request.setAttribute("TXTApePaterno", txtApePaterno);
-            request.setAttribute("TXTApeMaterno", txtApeMaterno);
-            request.setAttribute("TXTEdad", txtEdad);
-            request.setAttribute("REQFechaNacimiento", txtFechaNacimiento);
-            request.setAttribute("REQFechaPartida", txtFechaPartida);
-            request.setAttribute("REQFechaLlegada", txtFechaLlegada);
-            request.setAttribute("REQHoraPartida", txtHoraPartida);
-            request.setAttribute("REQHoraLlegada", txtHoraLlegada);
-            request.setAttribute("TXTAsiento", txtAsiento);
-		objBus = (Bus) sesion.getAttribute("OBJBus");
+        request.setAttribute("TXTNumDoc", txtNumDoc);
+        request.setAttribute("TXTNombre", txtNombre);
+        request.setAttribute("TXTApePaterno", txtApePaterno);
+        request.setAttribute("TXTApeMaterno", txtApeMaterno);
+        request.setAttribute("TXTEdad", txtEdad);
+        request.setAttribute("REQFechaNacimiento", txtFechaNacimiento);
+        request.setAttribute("REQFechaPartida", txtFechaPartida);
+        request.setAttribute("REQFechaLlegada", txtFechaLlegada);
+        request.setAttribute("REQHoraPartida", txtHoraPartida);
+        request.setAttribute("REQHoraLlegada", txtHoraLlegada);
+        request.setAttribute("TXTAsiento", txtAsiento);
+        objBus = (Bus) sesion.getAttribute("OBJBus");
 //          request.setAttribute("NUPlaca", objBus.setNu_Placa(nu_Placa));
-        
+
 // Forward llama al jsp	
         RequestDispatcher rd = request.getRequestDispatcher("RegistrarPasajeros.jsp");
         rd.forward(request, response);
@@ -324,7 +332,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 //			sesion.setAttribute("ERROR_MSG", e.getMessage());
 //			RequestDispatcher rd = request.getRequestDispatcher("error.jsp");
 //			rd.forward(request, response);
-        
+
 //        processRequest(request, response); linea original
     }
 

@@ -4,6 +4,7 @@
     Author     : JHLM
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,7 +38,11 @@
 		<div id="leftcolumn">
 			<div id="navigation">
 				<ul>
-					<li><a href="#">Registrar</a>
+					 <c:if test="${sessionScope.USUARIO_ACTUAL.nu_Tipo eq 1}" >
+                                    <li><a href="#">Registrar</a>
+                                       
+                                            
+                                        
 						<ul class="sub-menu">
 							<li><a href="RegistrarPasajeroServlet" target="iframe">Pasajeros</a></li>
 							<%--
@@ -52,6 +57,7 @@
 									Deportivos</a></li>
                                                         --%>                
 						</ul></li>
+                                            </c:if>
 					<li><a href="Construccion.html" target="iframe"> Consultas</a></li>
 					<li><a href="Construccion.html" target="iframe"> Reportes</a></li>
 					<li><a href="Construccion.html" target="iframe"> Mantenimiento</a></li>
