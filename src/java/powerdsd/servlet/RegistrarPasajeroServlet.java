@@ -231,7 +231,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 request.setAttribute("TXTEdad", txtEdad);
 
             } // ****************** Fin consulta Reniec *************************	
-            // ****************** Inicio Confirmar *************************		
+            // ******************  Inicio Confirmar *************************		
             else if (request.getParameter("Confirmar") != null) {
 
             ClienteREST client=new ClienteREST();
