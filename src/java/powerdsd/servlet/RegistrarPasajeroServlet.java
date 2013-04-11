@@ -4,7 +4,7 @@
  */
 package powerdsd.servlet;
 
-import com.sun.jersey.api.client.ClientResponse;
+
 import com.sun.jersey.api.client.UniformInterfaceException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +26,7 @@ import powerdsd.modelo.Agencia;
 import powerdsd.modelo.Bus;
 import powerdsd.modelo.Cliente;
 import powerdsd.dao.ClienteDAO;
+import powerdsd.jms.AlertaJms;
 import powerdsd.negocio.AgenciaNegocio;
 import powerdsd.negocio.BusNegocio;
 import powerdsd.negocio.ClienteNegocio;
@@ -41,6 +42,7 @@ import powerdsd.util.Funciones;
 public class RegistrarPasajeroServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_52115/ServicioReniec/WSConsultaReniec.asmx.wsdl")
+    
     private localhost.WSConsultaReniec service;
 
     /**
@@ -177,9 +179,9 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
         try {
             String accion = request.getParameter("hddaccion");
-            System.out.println("Valor del boton: " + accion);
-            System.out.println("Boton Reniec=" + request.getParameter("Reniec"));
-            System.out.println("Boton Grabar=" + request.getParameter("Grabar"));
+            //System.out.println("Valor del boton: " + accion);
+            //System.out.println("Boton Reniec=" + request.getParameter("Reniec"));
+            //System.out.println("Boton Grabar=" + request.getParameter("Grabar"));
 
             /*  la funcion modifica las fechas a formato aaaa-mm-dd. */
             String txtFechaNa = Funciones.cambiaFormatoFecha(txtFechaNacimiento);
@@ -205,12 +207,12 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
             if (request.getParameter("Reniec") != null) {
 
-                System.out.println("dentro del boton Reniec");
+                //System.out.println("dentro del boton Reniec");
 
-                for (Object o : datosPersona(txtNumDoc).getAnyType()) {
+                /*for (Object o : datosPersona(txtNumDoc).getAnyType()) {
                     System.out.println(o);
 
-                }
+                }*/
 
                 List<Object> data = datosPersona(txtNumDoc).getAnyType();
 
@@ -224,7 +226,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
 
-                System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: " + Funciones.calcularEdad(txtFechaNacimiento));
+                //System.out.println("Fecha Nacimiento: " + txtFechaNacimiento + "Edad: " + Funciones.calcularEdad(txtFechaNacimiento));
 
                 request.setAttribute("TXTNumDoc", txtNumDoc);
                 request.setAttribute("TXTNombre", txtNombre);
@@ -246,12 +248,12 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             // ****************** Inicio Rechazar *************************		
             else if (request.getParameter("Rechazar") != null) {
 
-                System.out.println("dentro del boton Rechazar");
+                //System.out.println("dentro del boton Rechazar");
 
             } // ****************** Fin Rechazar  *************************
             else if (request.getParameter("Grabar") != null) {
 
-                System.out.println("dentro del boton Grabar");
+                //System.out.println("dentro del boton Grabar");
 
                 txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
                 request.setAttribute("TXTEdad", txtEdad);
@@ -269,7 +271,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 ClienteDAO dao = new ClienteDAO();
                 ClienteNegocio neg = new ClienteNegocio();
 
-                System.out.println("validarCliente: " + dao.validarCliente(txtNumDoc));
+                //System.out.println("validarCliente: " + dao.validarCliente(txtNumDoc));
                 if (dao.validarCliente(txtNumDoc) == 0) {
                     neg.insertarCliente(txtNumDoc, txtApePaterno, txtApeMaterno, txtNombre, sqlDateNac);
                 }
@@ -281,9 +283,28 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 psjNeg.insertarPasaje(cl, sqlDateVta, bs,
                         numAsiento, ago, sqlDateSal, txtHoraPartida,
                         agd, sqlDateLle, txtHoraLlegada);
-                System.out.println("se envió insertarPasaje");
+                //System.out.println("se envió insertarPasaje");
                 request.setAttribute("MSG_ERROR", "El pasaje se registro con exito");
-                System.out.println("despues de resquest");
+                //System.out.println("despues de resquest");
+            }else if (request.getParameter("suplantacion")!=null){
+                
+                StringBuilder mensaje = new StringBuilder();
+                
+                mensaje.append("SI - ");
+                mensaje.append(txtNumDoc).append(" ");
+                mensaje.append(txtApePaterno).append(" ");
+                mensaje.append(txtApeMaterno).append(", ");
+                mensaje.append(txtNombre);
+                
+                AlertaJms alertaJms = new AlertaJms();
+                alertaJms.enviar(mensaje.toString());
+                
+            
+            }else if(request.getParameter("consultarCola")!=null){
+                AlertaJms alertaJms = new AlertaJms();
+                
+                
+                request.setAttribute("dataCola", alertaJms.obtener());
             }
         } catch (DAOExcepcion e) {
 
@@ -292,17 +313,17 @@ public class RegistrarPasajeroServlet extends HttpServlet {
 
             objBus = (Bus) sesion.getAttribute("OBJBus");
 
-            System.out.println("dentro del Catch Dao");
+            //System.out.println("dentro del Catch Dao");
             request.setAttribute("MSG_ERROR", e.getMessage());
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
         } catch (SQLException ex) {
 
             objBus = (Bus) sesion.getAttribute("OBJBus");
 
-            System.out.println("dentro del Catch Sql");
+            //System.out.println("dentro del Catch Sql");
             request.setAttribute("MSG_ERROR", ex.getMessage());
-            System.out.println(ex.getMessage());
+            //System.out.println(ex.getMessage());
 
         } catch (UniformInterfaceException ex) {
             Logger.getLogger(RegistrarPasajeroServlet.class.getName()).log(Level.SEVERE, null, ex);

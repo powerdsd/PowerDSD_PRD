@@ -112,7 +112,14 @@ String mensajeError = (String)request.getAttribute("MSG_ERROR");
                 <tr>
                     <td><em>N&uacute;mero de Documento de Identidad:</em><em class="rojo">*</em></td>
                     <td><span class="letra2"> <input type="text" name="txtNumDoc" id="txtNumDoc" value="<%=request.getAttribute("TXTNumDoc")%>" /></span></td>
-                    <td><input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/></td>
+                    <td>
+                        <input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/>
+                        <input type="submit" name="suplantacion" id="Reniec" value="Alerta: Suplantación de Identidad" class="boton" onclick="a"/>
+                        <input type="submit" name="consultarCola" id="Reniec" value="Consultar Cola" class="boton" onclick="a"/>
+                        <br>
+                        <br>
+                        <%=request.getAttribute("dataCola")%>
+                    </td>
 
                 </tr>
 

@@ -22,6 +22,7 @@ import javax.xml.ws.WebServiceRef;
 public class DatosReniecServlet extends HttpServlet {
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_52115/ServicioReniec/WSConsultaReniec.asmx.wsdl")
     private localhost.WSConsultaReniec service;
+    
 
     /**
      * Processes requests for both HTTP
