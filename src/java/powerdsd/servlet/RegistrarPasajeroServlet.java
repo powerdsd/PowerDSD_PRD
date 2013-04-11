@@ -4,7 +4,6 @@
  */
 package powerdsd.servlet;
 
-
 import com.sun.jersey.api.client.UniformInterfaceException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,6 +31,7 @@ import powerdsd.negocio.BusNegocio;
 import powerdsd.negocio.ClienteNegocio;
 import powerdsd.negocio.PasajeNegocio;
 import powerdsd.rest.ClienteREST;
+import powerdsd.rest.TbRequisitoria;
 import powerdsd.util.Funciones;
 
 /**
@@ -42,7 +42,6 @@ import powerdsd.util.Funciones;
 public class RegistrarPasajeroServlet extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/localhost_52115/ServicioReniec/WSConsultaReniec.asmx.wsdl")
-    
     private localhost.WSConsultaReniec service;
 
     /**
@@ -210,9 +209,9 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 //System.out.println("dentro del boton Reniec");
 
                 /*for (Object o : datosPersona(txtNumDoc).getAnyType()) {
-                    System.out.println(o);
+                 System.out.println(o);
 
-                }*/
+                 }*/
 
                 List<Object> data = datosPersona(txtNumDoc).getAnyType();
 
@@ -240,23 +239,40 @@ public class RegistrarPasajeroServlet extends HttpServlet {
             else if (request.getParameter("Confirmar") != null) {
 
                 ClienteREST clientRest = new ClienteREST();
-               
-                
-                request.setAttribute("requisitorias",  clientRest.obtenerDatosRequisitoria(txtNumDoc));
+                AlertaJms alertaJms = new AlertaJms();
+
+                List<TbRequisitoria> requisitorias = clientRest.obtenerDatosRequisitoria(txtNumDoc);
+
+                if (requisitorias.size() > 0) {
+
+
+                    for (TbRequisitoria requisitoria : requisitorias) {
+                        StringBuilder mensaje = new StringBuilder();
+
+                        mensaje.append("RQ - ");
+                        mensaje.append(txtNumDoc).append(" ");
+                        mensaje.append(txtApePaterno).append(" ");
+                        mensaje.append(txtApeMaterno).append(", ");
+                        mensaje.append(txtNombre).append(" #");
+                        mensaje.append(requisitoria.getCodDelito()).append("-");
+                        mensaje.append(requisitoria.getCodEstado());
+
+                        alertaJms.enviar(mensaje.toString());
+                    }
+                }
+
+                request.setAttribute("requisitorias", requisitorias);
 
             } // ****************** Fin Confirmar  *************************
             // ****************** Inicio Rechazar *************************		
             else if (request.getParameter("Rechazar") != null) {
-
                 //System.out.println("dentro del boton Rechazar");
-
             } // ****************** Fin Rechazar  *************************
             else if (request.getParameter("Grabar") != null) {
 
                 //System.out.println("dentro del boton Grabar");
 
-                txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
-                request.setAttribute("TXTEdad", txtEdad);
+
 
                 /*
                  if (txtBoleto.trim().length() == 0) {
@@ -286,36 +302,44 @@ public class RegistrarPasajeroServlet extends HttpServlet {
                 //System.out.println("se envió insertarPasaje");
                 request.setAttribute("MSG_ERROR", "El pasaje se registro con exito");
                 //System.out.println("despues de resquest");
-            }else if (request.getParameter("suplantacion")!=null){
-                
-                StringBuilder mensaje = new StringBuilder();
-                
-                mensaje.append("SI - ");
-                mensaje.append(txtNumDoc).append(" ");
-                mensaje.append(txtApePaterno).append(" ");
-                mensaje.append(txtApeMaterno).append(", ");
-                mensaje.append(txtNombre);
-                
+            } else if (request.getParameter("suplantacion") != null) {
+
+                if (!txtNumDoc.equals("")) {
+                    StringBuilder mensaje = new StringBuilder();
+                    AlertaJms alertaJms = new AlertaJms();
+
+                    mensaje.append("SI - ");
+                    mensaje.append(txtNumDoc).append(" ");
+                    mensaje.append(txtApePaterno).append(" ");
+                    mensaje.append(txtApeMaterno).append(", ");
+                    mensaje.append(txtNombre);
+                    alertaJms.enviar(mensaje.toString());
+                } else {
+                    request.setAttribute("MSG_ERROR", "NO SE HA CONSULTADO DATOS");
+                }
+
+
+
+            } else if (request.getParameter("consultarCola") != null) {
                 AlertaJms alertaJms = new AlertaJms();
-                alertaJms.enviar(mensaje.toString());
-                
-            
-            }else if(request.getParameter("consultarCola")!=null){
-                AlertaJms alertaJms = new AlertaJms();
-                
-                
-                request.setAttribute("dataCola", alertaJms.obtener());
+
+                int numeroMensaje = alertaJms.numeroMensajes();
+                System.out.println("numeroMensaje: " + numeroMensaje);
+
+                if (numeroMensaje > 0) {
+                    request.setAttribute("data", alertaJms.obtener());
+                }
+
+
+                request.setAttribute("numeroMensaje", numeroMensaje);
+
+
+
             }
         } catch (DAOExcepcion e) {
-
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-
             objBus = (Bus) sesion.getAttribute("OBJBus");
 
-            //System.out.println("dentro del Catch Dao");
             request.setAttribute("MSG_ERROR", e.getMessage());
-            //System.out.println(e.getMessage());
 
         } catch (SQLException ex) {
 
@@ -330,6 +354,8 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(RegistrarPasajeroServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        txtEdad = String.valueOf(Funciones.calcularEdad(txtFechaNacimiento));
         //LAS GUARDO PARA COLOCARLAS EN LAS CAJAS RESPECTIVAS
         request.setAttribute("TXTNumDoc", txtNumDoc);
         request.setAttribute("TXTNombre", txtNombre);
@@ -342,6 +368,7 @@ public class RegistrarPasajeroServlet extends HttpServlet {
         request.setAttribute("REQHoraPartida", txtHoraPartida);
         request.setAttribute("REQHoraLlegada", txtHoraLlegada);
         request.setAttribute("TXTAsiento", txtAsiento);
+
         objBus = (Bus) sesion.getAttribute("OBJBus");
 //          request.setAttribute("NUPlaca", objBus.setNu_Placa(nu_Placa));
 

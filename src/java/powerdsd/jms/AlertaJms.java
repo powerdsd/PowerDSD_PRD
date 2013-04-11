@@ -4,6 +4,7 @@
  */
 package powerdsd.jms;
 
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Connection;
@@ -13,6 +14,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
+import javax.jms.QueueBrowser;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueReceiver;
@@ -32,8 +34,52 @@ public class AlertaJms {
     public void enviar(String mensaje) throws JMSException, NamingException {
         sendJMSMessageToMyQueue(mensaje);
     }
+    
+    public int numeroMensajes() throws JMSException, NamingException{
+          // get the initial context
+       InitialContext ctx = new InitialContext();
+                                                                          
+       // lookup the queue object
+       Queue queue = (Queue) ctx.lookup("java:comp/env/jms/myQueue");
+                                                                          
+       // lookup the queue connection factory
+       QueueConnectionFactory connFactory = (QueueConnectionFactory) ctx.
+           lookup("java:comp/env/jms/myQueueFactory");
+                                                                          
+       // create a queue connection
+       QueueConnection queueConn = connFactory.createQueueConnection();
+                                                                          
+       // create a queue session
+       QueueSession queueSession = queueConn.createQueueSession(false,
+           Session.AUTO_ACKNOWLEDGE);
+                                                                          
+       // create a queue browser
+       QueueBrowser queueBrowser = queueSession.createBrowser(queue);
+                                                                          
+       // start the connection
+       queueConn.start();
+                                                                          
+       // browse the messages
+       Enumeration e = queueBrowser.getEnumeration();
+    
+                                                                          
+       // count number of messages
+       
+       int contador = 0;
+       while (e.hasMoreElements()) {
+           e.nextElement();
+          contador++;
+          
+       }
+
+       queueConn.close();
+       
+       return contador;
+        
+    }
 
     public String obtener() throws NamingException, JMSException {
+        System.out.println("inicio obtener");
         QueueConnection queueCon = null;
         String mensaje=null;
         try {
@@ -54,6 +100,9 @@ public class AlertaJms {
 
             queueCon.start();
             Message m = receiver.receive();
+            
+           
+            
             if (m != null && m instanceof TextMessage) {
                 System.out.println("enter if");
                 TextMessage message = (TextMessage) m;

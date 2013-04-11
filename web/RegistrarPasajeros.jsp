@@ -5,6 +5,7 @@
 <%
 List<TbRequisitoria> requisitorias = (List<TbRequisitoria>)request.getAttribute("requisitorias");
 String mensajeError = (String)request.getAttribute("MSG_ERROR");
+String data = (String)request.getAttribute("data");
 %>
 <html>
     <head>
@@ -115,10 +116,15 @@ String mensajeError = (String)request.getAttribute("MSG_ERROR");
                     <td>
                         <input type="submit" name="Reniec" id="Reniec" value="Consulta Reniec" class="boton" onclick="a"/>
                         <input type="submit" name="suplantacion" id="Reniec" value="Alerta: Suplantación de Identidad" class="boton" onclick="a"/>
+                        <%--
                         <input type="submit" name="consultarCola" id="Reniec" value="Consultar Cola" class="boton" onclick="a"/>
+                        --%>
                         <br>
                         <br>
-                        <%=request.getAttribute("dataCola")%>
+                        <%=(data==null?"":data)%>
+                        
+                        
+                        
                     </td>
 
                 </tr>
@@ -145,13 +151,15 @@ String mensajeError = (String)request.getAttribute("MSG_ERROR");
                 </tr>
 
                 <tr>
-                    <td><input type="submit" name="Confirmar" id="Confirmar" value="Confirmar" class="boton" onclick="a"/></td>
+                    <td><input type="submit" name="Confirmar" id="Confirmar" value="Validar requisitoria" class="boton" onclick="a"/></td>
                 </tr>
                 <tr>
                     <td>Datos de Requisitoria:</td>
                     <td>
                         
-                        <%if(requisitorias==null){%>
+                        <%
+                        if(requisitorias!=null) 
+                        if(requisitorias.size()==0){%>
                         No se encontro ningun datoe requisitorio
                         <%}else{
                             
